@@ -138,6 +138,12 @@ app.post('/account/delete', passportConfig.isAuthenticated, userController.postD
 app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userController.getOauthUnlink);
 
 /**
+ * IPFS routes
+ */
+app.post('/ipfs/upload', upload.single('document'), ipfsController.uploadDocument);
+app.get('/ipfs/:documentName', ipfsController.downloadDocument);
+
+/**
  * API examples routes.
  */
 app.get('/api', apiController.getApi);
