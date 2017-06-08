@@ -30,6 +30,7 @@ contract RefID is owned, mortal {
 
     struct Person {
         bytes32 bioHash;
+        bytes32 personalDataHash;
         uint dateUpdated;
         uint dateCreated;
         address addr;
@@ -38,24 +39,22 @@ contract RefID is owned, mortal {
     
     Person person;
     
-    function RefID(string _lat, string _long) {
+    function RefID(string _lat, string _long, string, bytes32 _bioHash, bytes32 _personalDataHash) {
         owner = msg.sender;
         person.addr = msg.sender;
         person.dateUpdated = now;
         person.dateCreated = now;
         person.locations.push(Location(_lat, _long, now));
+        person.bioHash = _bioHash;
+        person.personalDataHash = _personalDataHash;
     }
     
-    function hashBiometricTemplates(string _fingerPrint, string _faceRecon, string _iris) isOwned {
-        person.bioHash = sha256(_fingerPrint, _faceRecon, _iris);
-        person.dateUpdated = now;
-    }
-    
-    function getPerson() constant returns (bytes32, address, uint, uint) {
-        return (person.bioHash, person.addr, person.dateUpdated, person.dateCreated);
+    function getPerson() constant returns (bytes32, bytes32, address, uint, uint) {
+        return (person.bioHash, person.personalDataHash, person.addr, person.dateUpdated, person.dateCreated);
     }
     
     function updateLocation(string _lat, string _long) {
         person.locations.push(Location(_lat, _long, now));
+        person.dateUpdated = now;
     }
 }
