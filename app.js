@@ -34,7 +34,9 @@ const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
-
+const bigchainController = require('./controllers/bigchain.js');
+const ipfsController = require('./controllers/ipfs.js');
+const ethereumController = require('./controllers/ethereum.js');
 /**
  * API keys and Passport configuration.
  */
