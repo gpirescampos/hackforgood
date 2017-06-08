@@ -19,7 +19,7 @@ const encrypt = (buffer) => {
   }
 };
 
-exports.uploadDocument = (req, res, next) => {
+module.exports.uploadDocument = (req, res, next) => {
   let file;
   if (req.file) {
     ipfs.add(encrypt(req.file.buffer), (err, result) => {
@@ -37,7 +37,7 @@ exports.uploadDocument = (req, res, next) => {
   }
 };
 
-exports.downloadDocument = (req, res, next) => {
+module.exports.downloadDocument = (req, res, next) => {
   const fileHash = req.params.hash;
   let decrypt;
   ipfs.cat(fileHash, (err, result) => {
