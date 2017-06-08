@@ -33,21 +33,26 @@ exports.uploadDocument = (req, res, next) => {
       }
     });
   } else {
-    return next();
+    return next('No file provided');
   }
 };
 
 exports.downloadDocument = (req, res, next) => {
-  const fileHash = req.params.documentHash;
+  const fileHash = req.params.hash;
   let decrypt;
   ipfs.cat(fileHash, (err, result) => {
-    if (!fileHash || err || !result) {
+    if (!fileHash || fileHash.length === 0) {
+      return next('No hash provided');
+    } else if (err) {
       return next(err);
-    }
-    if (result.readable) {
+    } else if (!result) {
+      return next('Empty response');
+    } else if (result.readable) {
       decrypt = crypto.createDecipher(algorithm, password);
       res.setHeader('content-disposition', 'attachment; filename=document');
       result.pipe(decrypt).pipe(res);
+    } else {
+      return next('Unknown error');
     }
   });
 };

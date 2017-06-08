@@ -109,7 +109,7 @@ app.use((req, res, next) => {
       !req.path.match(/\./)) {
     req.session.returnTo = req.path;
   } else if (req.user &&
-      req.path == '/account') {
+      req.path === '/account') {
     req.session.returnTo = req.path;
   }
   next();
@@ -140,8 +140,8 @@ app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userControl
 /**
  * IPFS routes
  */
-app.post('/ipfs/upload', upload.single('document'), ipfsController.uploadDocument);
-app.get('/ipfs/:documentName', ipfsController.downloadDocument);
+app.post('/api/ipfs/upload', upload.single('document'), ipfsController.uploadDocument);
+app.get('/api/ipfs/download/:hash', ipfsController.downloadDocument);
 
 /**
  * API examples routes.
@@ -233,7 +233,7 @@ app.use(errorHandler());
  * Start Express server.
  */
 app.listen(app.get('port'), () => {
-  console.log('%s App is running at http://localhost:%d in %s mode', chalk.green('✓'), app.get('port'), app.get('env')); 
+  console.log('%s App is running at http://localhost:%d in %s mode', chalk.green('✓'), app.get('port'), app.get('env'));
   console.log('  Press CTRL-C to stop\n');
 });
 
