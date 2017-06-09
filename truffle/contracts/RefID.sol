@@ -39,7 +39,7 @@ contract RefID is owned, mortal {
     
     Person person;
     
-    function RefID(string _lat, string _long, string, bytes32 _bioHash, bytes32 _personalDataHash) {
+    function RefID(string _lat, string _long, bytes32 _bioHash, bytes32 _personalDataHash) {
         person.dateUpdated = now;
         person.dateCreated = now;
         person.locations.push(Location(_lat, _long, now));

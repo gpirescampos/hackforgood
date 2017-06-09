@@ -1,12 +1,13 @@
 const Web3 = require('web3');
 const contract = require('truffle-contract');
-const CONSTANTS = require('../constants.js');
+const CONSTANTS = require('../constants');
 
-let refIDjson = require('../truffle/build/contracts/RefID.json');
+const web3 = new Web3();
+web3.setProvider(new web3.providers.HttpProvider(CONSTANTS.ETHEREUM_SERVER + ':' + CONSTANTS.ETHEREUM_PORT));
 
-let refIDc = contract(refIDjson);
-
-let web3 = new Web3();
+const refIDjson = require('../truffle/build/contracts/RefID.json');
+const refIDc = contract(refIDjson);
+refIDc.setProvider(new Web3.providers.HttpProvider(CONSTANTS.ETHEREUM_SERVER + ':' + CONSTANTS.ETHEREUM_PORT));
 
 module.exports.newAccount = (req, res, next) => {
   return new Promise((resolve, reject) => {
@@ -30,4 +31,28 @@ module.exports.unlockAccount = (req, res, next) => {
       }
     });
   });
+};
+
+module.exports.sendTransaction = (req, res, next) => {
+  return new Promise((resolve, reject) => {
+    web3.eth.sendTransaction({
+      from: req.body.sender,
+      to: req.body.receiver,
+      amount: req.body.amount
+    }, (error, result) => {
+      if (!error) {
+        resolve(result);
+      } else {
+        reject(error);
+      }
+    });
+  });
+};
+
+module.exports.deployID = (req, res, next) => {
+  refIDc.new(req.body.lat, req.body.long, req.body.bioHash, req.body.personalDataHash, {
+    from: req.body.sender
+  }).then((response) => {
+    res.json(response).end();
+  }).catch(next);
 };

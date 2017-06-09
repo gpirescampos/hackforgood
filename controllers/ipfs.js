@@ -24,16 +24,16 @@ module.exports.uploadDocument = (req, res, next) => {
   if (req.file) {
     ipfs.add(encrypt(req.file.buffer), (err, result) => {
       if (err || !result) {
-        return next(err);
+        return next(new Error(err));
       } else if (result.length === 1) {
         file = result[0];
         res.json(file).end();
       } else {
-        return next(err);
+        return next(new Error(err));
       }
     });
   } else {
-    return next('No file provided');
+    return next(new Error('No file provided'));
   }
 };
 
@@ -42,17 +42,17 @@ module.exports.downloadDocument = (req, res, next) => {
   let decrypt;
   ipfs.cat(fileHash, (err, result) => {
     if (!fileHash || fileHash.length === 0) {
-      return next('No hash provided');
+      return next(new Error('No hash provided'));
     } else if (err) {
-      return next(err);
+      return next(new Error(err));
     } else if (!result) {
-      return next('Empty response');
+      return next(new Error('Empty response'));
     } else if (result.readable) {
       decrypt = crypto.createDecipher(algorithm, password);
       res.setHeader('content-disposition', 'attachment; filename=document');
       result.pipe(decrypt).pipe(res);
     } else {
-      return next('Unknown error');
+      return next(new Error('Unknown error'));
     }
   });
 };
