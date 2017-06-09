@@ -40,8 +40,6 @@ contract RefID is owned, mortal {
     Person person;
     
     function RefID(string _lat, string _long, string, bytes32 _bioHash, bytes32 _personalDataHash) {
-        owner = msg.sender;
-        person.addr = msg.sender;
         person.dateUpdated = now;
         person.dateCreated = now;
         person.locations.push(Location(_lat, _long, now));
@@ -51,6 +49,11 @@ contract RefID is owned, mortal {
     
     function getPerson() constant returns (bytes32, bytes32, address, uint, uint) {
         return (person.bioHash, person.personalDataHash, person.addr, person.dateUpdated, person.dateCreated);
+    }
+    
+    function updatePerson(bytes32 _personalDataHash) {
+        person.personalDataHash = _personalDataHash;
+        person.dateUpdated = now;
     }
     
     function updateLocation(string _lat, string _long) {
