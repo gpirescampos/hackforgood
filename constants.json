@@ -1,0 +1,6 @@
+{
+  "ETHEREUM_SERVER" : "http://localhost",
+  "ETHEREUM_PORT" : "8545",
+  "MONGO_SERVER" : "http://localhost",
+  "MONGO_PORT" : "9984"
+}
