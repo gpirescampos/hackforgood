@@ -12,7 +12,8 @@
     "start": "node app.js",
     "test": "mocha --reporter spec",
     "postinstall": "npm rebuild node-sass",
-    "debug": "node --nolazy --inspect=5858 app.js"
+    "debug": "node --nolazy --inspect=5858 app.js",
+    "node": "cd ../node && geth --identity \"Chain\" --rpc --rpccorsdomain \"*\" --datadir \"Data\" --port \"33333\" --rpcapi \"admin,db,eth,debug,miner,net,shh,txpool,personal,web3\" --lightkdf --fakepow --networkid 22222 --pprof --dev --mine --minerthreads \"1\" console"
   },
   "dependencies": {
     "bcrypt-nodejs": "^0.0.3",
