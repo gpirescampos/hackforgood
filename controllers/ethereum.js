@@ -10,30 +10,27 @@ const refIDc = contract(refIDjson);
 refIDc.setProvider(new Web3.providers.HttpProvider(CONSTANTS.ETHEREUM_SERVER + ':' + CONSTANTS.ETHEREUM_PORT));
 
 module.exports.newAccount = (req, res, next) => {
-  return new Promise((resolve, reject) => {
-    web3.personal.newAccount(req.body.password, (error, result) => {
-      if (!error) {
-        resolve(result);
-      } else {
-        reject(error);
-      }
-    });
+  web3.personal.newAccount(req.body.password, (error, result) => {
+    if (!error) {
+      res.json(result).end();
+    } else {
+      return next(new Error(error));
+    }
   });
 };
 
 module.exports.unlockAccount = (req, res, next) => {
-  return new Promise((resolve, reject) => {
-    web3.personal.unlockAccount(req.body.address, req.body.password, 99999, (error, result) => {
-      if (!error) {
-        resolve(result);
-      } else {
-        reject(error);
-      }
-    });
+  console.log(req);
+  web3.personal.unlockAccount(req.body.address, req.body.password, 99999, (error, result) => {
+    if (!error) {
+      res.json(result).end();
+    } else {
+      return next(new Error(error));
+    }
   });
 };
 
-module.exports.sendTransaction = (req, res, next) => {
+module.exports.sendTransaction = (req) => {
   return new Promise((resolve, reject) => {
     web3.eth.sendTransaction({
       from: req.body.sender,

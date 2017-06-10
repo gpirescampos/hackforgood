@@ -137,6 +137,14 @@ app.post('/api/ipfs/upload', upload.single('document'), ipfsController.uploadDoc
 app.get('/api/ipfs/download/:hash', ipfsController.downloadDocument);
 
 /**
+ * Ethereum routes
+ */
+app.post('/api/eth/newAccount', ethereumController.newAccount);
+app.post('/api/eth/unlockAccount', ethereumController.unlockAccount);
+app.post('/api/eth/sendTransaction', ethereumController.sendTransaction);
+app.post('/api/eth/deployID', ethereumController.deployID);
+
+/**
  * API examples routes.
  */
 app.get('/api', apiController.getApi);
