@@ -34,9 +34,9 @@ const homeController = require('./controllers/home');
 const userController = require('./controllers/user');
 const apiController = require('./controllers/api');
 const contactController = require('./controllers/contact');
-const bigchainController = require('./controllers/bigchain.js');
-const ipfsController = require('./controllers/ipfs.js');
-const ethereumController = require('./controllers/ethereum.js');
+const mongoController = require('./controllers/mongo');
+const ipfsController = require('./controllers/ipfs');
+const ethereumController = require('./controllers/ethereum');
 /**
  * API keys and Passport configuration.
  */
@@ -87,13 +87,6 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
-app.use((req, res, next) => {
-  if (req.path === '/api/upload') {
-    next();
-  } else {
-    lusca.csrf()(req, res, next);
-  }
-});
 app.use(lusca.xframe('SAMEORIGIN'));
 app.use(lusca.xssProtection(true));
 app.use((req, res, next) => {

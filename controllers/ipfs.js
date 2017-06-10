@@ -1,5 +1,6 @@
 const ipfsAPI = require('ipfs-api');
 const crypto = require('crypto');
+const fs = require('fs');
 
 const ipfs = ipfsAPI('localhost', '5001', {
   protocol: 'http'
@@ -21,16 +22,17 @@ const encrypt = (buffer) => {
 
 module.exports.uploadDocument = (req, res, next) => {
   let file;
-  if (req.file) {
-    ipfs.add(encrypt(req.file.buffer), (err, result) => {
-      if (err || !result) {
-        return next(new Error(err));
-      } else if (result.length === 1) {
-        file = result[0];
-        res.json(file).end();
-      } else {
-        return next(new Error(err));
-      }
+  if (req.file.path) {
+    fs.readFile(req.file.path, (err, data) => {
+      if (err) return next(new Error(err));
+      ipfs.add(encrypt(data), (err, result) => {
+        if (err || !result) {
+          return next(new Error(err));
+        } else if (result.length === 1) {
+          file = result[0];
+          res.json(file).end();
+        }
+      });
     });
   } else {
     return next(new Error('No file provided'));
