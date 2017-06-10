@@ -20,7 +20,6 @@ module.exports.newAccount = (req, res, next) => {
 };
 
 module.exports.unlockAccount = (req, res, next) => {
-  console.log(req);
   web3.personal.unlockAccount(req.body.address, req.body.password, 99999, (error, result) => {
     if (!error) {
       res.json(result).end();
@@ -30,25 +29,24 @@ module.exports.unlockAccount = (req, res, next) => {
   });
 };
 
-module.exports.sendTransaction = (req) => {
-  return new Promise((resolve, reject) => {
-    web3.eth.sendTransaction({
-      from: req.body.sender,
-      to: req.body.receiver,
-      amount: req.body.amount
-    }, (error, result) => {
-      if (!error) {
-        resolve(result);
-      } else {
-        reject(error);
-      }
-    });
+module.exports.sendTransaction = (req, res, next) => {
+  web3.eth.sendTransaction({
+    from: req.body.sender,
+    to: req.body.receiver,
+    amount: req.body.amount
+  }, (error, result) => {
+    if (!error) {
+      res.json(result).end();
+    } else {
+      return next(new Error(error));
+    }
   });
 };
 
 module.exports.deployID = (req, res, next) => {
   refIDc.new(req.body.lat, req.body.long, req.body.bioHash, req.body.personalDataHash, {
-    from: req.body.sender
+    from: req.body.sender,
+    gas: 1000000
   }).then((response) => {
     res.json(response).end();
   }).catch(next);
