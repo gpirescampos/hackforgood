@@ -21,43 +21,29 @@ contract mortal is owned {
     }
 }
 contract RefID is owned, mortal {
-    
-    struct Location {
-        string lat;
-        string long;
-        uint dateAdded;
-    }
 
     struct Person {
-        bytes32 bioHash;
-        bytes32 personalDataHash;
+        string bioHash;
+        string personalDataHash;
         uint dateUpdated;
         uint dateCreated;
-        address addr;
-        Location[] locations;
     }
     
     Person person;
     
-    function RefID(string _lat, string _long, bytes32 _bioHash, bytes32 _personalDataHash) {
+    function RefID(string _bioHash, string _personalDataHash) {
         person.dateUpdated = now;
         person.dateCreated = now;
-        person.locations.push(Location(_lat, _long, now));
         person.bioHash = _bioHash;
         person.personalDataHash = _personalDataHash;
     }
     
-    function getPerson() constant returns (bytes32, bytes32, address, uint, uint) {
-        return (person.bioHash, person.personalDataHash, person.addr, person.dateUpdated, person.dateCreated);
+    function getPerson() constant returns (string, string, address, uint, uint) {
+        return (person.bioHash, person.personalDataHash, owned.owner, person.dateUpdated, person.dateCreated);
     }
     
-    function updatePerson(bytes32 _personalDataHash) {
+    function updatePerson(string _personalDataHash) {
         person.personalDataHash = _personalDataHash;
-        person.dateUpdated = now;
-    }
-    
-    function updateLocation(string _lat, string _long) {
-        person.locations.push(Location(_lat, _long, now));
         person.dateUpdated = now;
     }
 }

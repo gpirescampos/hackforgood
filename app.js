@@ -143,6 +143,8 @@ app.post('/api/eth/newAccount', ethereumController.newAccount);
 app.post('/api/eth/unlockAccount', ethereumController.unlockAccount);
 app.post('/api/eth/sendTransaction', ethereumController.sendTransaction);
 app.post('/api/eth/deployID', ethereumController.deployID);
+app.get('/api/eth/getPErson/:contractAddress', ethereumController.getPerson);
+app.post('/api/eth/updatePerson/:contractAddress', ethereumController.updatePerson);
 
 /**
  * API examples routes.

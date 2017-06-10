@@ -44,7 +44,22 @@ module.exports.sendTransaction = (req, res, next) => {
 };
 
 module.exports.deployID = (req, res, next) => {
-  refIDc.new(req.body.lat, req.body.long, req.body.bioHash, req.body.personalDataHash, {
+  refIDc.new(req.body.bioHash, req.body.personalDataHash, {
+    from: req.body.sender,
+    gas: 1000000
+  }).then((response) => {
+    res.json(response).end();
+  }).catch(next);
+};
+
+module.exports.getPerson = (req, res, next) => {
+  refIDc.at(req.params.contractAddress).getPerson().then((response) => {
+    res.json(response).end();
+  }).catch(next);
+};
+
+module.exports.updatePerson = (req, res, next) => {
+  refIDc.at(req.params.contractAddress).updatePerson(req.body.personalDataHash, {
     from: req.body.sender,
     gas: 1000000
   }).then((response) => {
