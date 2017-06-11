@@ -1,12 +1,13 @@
 const bcrypt = require('bcrypt-nodejs');
 const mongoose = require('mongoose');
+const crypto = require('crypto');
 
 const idSchema = new mongoose.Schema({
   fingerPrint: { type: String, unique: true },
   irisScan: { type: String, unique: true },
   facialRecognition: { type: String, unique: true },
   password: String,
-  id: String,
+  token: crypto.randomBytes(64),
 
   profile: {
     name: String,
@@ -15,7 +16,8 @@ const idSchema = new mongoose.Schema({
     birthDay: Date,
     city: String,
     country: String,
-    idNumber: Number
+    idNumber: Number,
+    email: { type: String, unique: true }
   },
 
   documents: {
@@ -54,7 +56,11 @@ idSchema.pre('save', function save(next) {
  * Hash full profile
  */
 idSchema.methods.hashProfile = function hash() {
-
+  console.log(this);
+  const dataToHash = this.profile.name + this.profile.gender + this.profile.age.toString() + this.profile.birthDay.toString() + this.profile.city + this.profile.country + this.profile.idNumber.toString() + this.profile.email;
+  const bioToHash = this.fingerPrint + this.irisScan + this.facialRecognition;
+  this.extra.profileHash = crypto.createHash('sha256').update(dataToHash).digest('hex');
+  this.extra.bioHash = crypto.createHash('sha256').update(bioToHash).digest('hex');
 };
 
 /**

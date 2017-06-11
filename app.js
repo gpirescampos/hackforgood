@@ -14,7 +14,6 @@ const MongoStore = require('connect-mongo')(session);
 const flash = require('express-flash');
 const path = require('path');
 const mongoose = require('mongoose');
-const passport = require('passport');
 const expressValidator = require('express-validator');
 const expressStatusMonitor = require('express-status-monitor');
 const sass = require('node-sass-middleware');
@@ -31,7 +30,6 @@ dotenv.load({ path: '.env.example' });
  * Controllers (route handlers).
  */
 const homeController = require('./controllers/home');
-const apiController = require('./controllers/api');
 const mongoController = require('./controllers/mongo');
 const ipfsController = require('./controllers/ipfs');
 const ethereumController = require('./controllers/ethereum');
@@ -45,7 +43,7 @@ const app = express();
  * Connect to MongoDB.
  */
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.MONGODB_URI || process.env.MONGOLAB_URI);
+mongoose.connect('mongodb://localhost/hackforgood');
 mongoose.connection.on('error', (err) => {
   console.error(err);
   console.log('%s MongoDB connection error. Please make sure MongoDB is running.', chalk.red('✗'));
@@ -73,13 +71,11 @@ app.use(session({
   saveUninitialized: true,
   secret: process.env.SESSION_SECRET,
   store: new MongoStore({
-    url: process.env.MONGODB_URI || process.env.MONGOLAB_URI,
+    url: 'mongodb://localhost/hackforgood',
     autoReconnect: true,
     clear_interval: 3600
   })
 }));
-app.use(passport.initialize());
-app.use(passport.session());
 app.use(flash());
 app.use(lusca.xframe('SAMEORIGIN'));
 app.use(lusca.xssProtection(true));
@@ -123,6 +119,11 @@ app.post('/api/eth/sendTransaction', ethereumController.sendTransaction);
 app.post('/api/eth/deployID', ethereumController.deployID);
 app.get('/api/eth/getPErson/:contractAddress', ethereumController.getPerson);
 app.post('/api/eth/updatePerson/:contractAddress', ethereumController.updatePerson);
+
+/**
+ * Mongo routes
+ */
+app.post('/api/mongo/createId', mongoController.createId);
 
 /**
  * Error Handler.
