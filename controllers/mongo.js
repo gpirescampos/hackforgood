@@ -1,12 +1,12 @@
 const CONSTANTS = require('../constants');
 const mongoose = require('mongoose');
+const crypto = require('crypto');
 const ID = require('../models/Id');
 const chrono = require('chrono-node')
 
 const mongo = CONSTANTS.MONGO_SERVER + ':' + CONSTANTS.MONGO_PORT;
 
 module.exports.createId = (req, res, next) => {
-  console.log(req.body);
   const id = new ID({
     fingerPrint: req.body.fingerPrint,
     irisScan: req.body.irisScan,
@@ -32,5 +32,15 @@ module.exports.createId = (req, res, next) => {
       return next(new Error(err));
     }
     res.json(data).end();
+  });
+};
+
+module.exports.getId = (req, res, next) => {
+  ID.findOne({
+    token: req.params.token
+  }).select('')
+  .exec((err, user) => {
+    if (!err) res.json(user).end();
+    else return next(new Error(err));
   });
 };

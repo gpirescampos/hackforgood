@@ -124,6 +124,7 @@ app.post('/api/eth/updatePerson/:contractAddress', ethereumController.updatePers
  * Mongo routes
  */
 app.post('/api/mongo/createId', mongoController.createId);
+app.get('/api/mongo/getId/:token', mongoController.getId);
 
 /**
  * Error Handler.

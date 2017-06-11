@@ -7,7 +7,7 @@ const idSchema = new mongoose.Schema({
   irisScan: { type: String, unique: true },
   facialRecognition: { type: String, unique: true },
   password: String,
-  token: crypto.randomBytes(64),
+  token: String,
 
   profile: {
     name: String,
@@ -56,11 +56,12 @@ idSchema.pre('save', function save(next) {
  * Hash full profile
  */
 idSchema.methods.hashProfile = function hash() {
-  console.log(this);
+  const rand = crypto.randomBytes(64);
   const dataToHash = this.profile.name + this.profile.gender + this.profile.age.toString() + this.profile.birthDay.toString() + this.profile.city + this.profile.country + this.profile.idNumber.toString() + this.profile.email;
   const bioToHash = this.fingerPrint + this.irisScan + this.facialRecognition;
   this.extra.profileHash = crypto.createHash('sha256').update(dataToHash).digest('hex');
   this.extra.bioHash = crypto.createHash('sha256').update(bioToHash).digest('hex');
+  this.token = crypto.createHash('sha256').update(rand).digest('hex');
 };
 
 /**
