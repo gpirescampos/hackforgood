@@ -30,6 +30,7 @@ dotenv.load({ path: '.env.example' });
  * Controllers (route handlers).
  */
 const homeController = require('./controllers/home');
+const preController = require('./controllers/preregister');
 const mongoController = require('./controllers/mongo');
 const ipfsController = require('./controllers/ipfs');
 const ethereumController = require('./controllers/ethereum');
@@ -55,6 +56,7 @@ mongoose.connection.on('error', (err) => {
  */
 app.set('port', process.env.PORT || 3000);
 app.set('views', path.join(__dirname, 'views'));
+app.locals.basedir = app.get('views');
 app.set('view engine', 'pug');
 app.use(expressStatusMonitor());
 app.use(compression());
@@ -103,6 +105,8 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
  * Primary app routes.
  */
 app.get('/', homeController.index);
+app.get('/preregister/:step', preController.getPreRegister);
+
 
 /**
  * IPFS routes

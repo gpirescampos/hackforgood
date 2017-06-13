@@ -15,11 +15,9 @@ module.exports.createId = (req, res, next) => {
     profile: {
       name: req.body.name,
       gender: req.body.gender,
-      age: req.body.age,
       birthDay: chrono.parseDate(req.body.birthday),
       city: req.body.city,
       country: req.body.country,
-      idNumber: req.body.idNumber,
       email: req.body.email
     },
     extra: {
@@ -37,12 +35,12 @@ module.exports.createId = (req, res, next) => {
 
 module.exports.getId = (req, res, next) => {
   ID.findOne({
-      token: req.params.token
-    }).select('')
-    .exec((err, user) => {
-      if (!err) res.json(user).end();
-      else return next(new Error(err));
-    });
+    token: req.params.token
+  }).select('')
+  .exec((err, user) => {
+    if (!err) res.json(user).end();
+    else return next(new Error(err));
+  });
 };
 
 module.exports.updateId = (req, res, next) => {
@@ -54,11 +52,9 @@ module.exports.updateId = (req, res, next) => {
       user.password = req.body.password ? req.body.password : user.extra.password;
       user.profile.name = req.body.name ? req.body.name : user.extra.name;
       user.profile.gender = req.body.gender ? req.body.gender : user.extra.gender;
-      user.profile.age = req.body.age ? req.body.age : user.extra.age;
       user.profile.birthDay = req.body.birthDay ? req.body.birthDay : user.extra.birthDay;
       user.profile.city = req.body.city ? req.body.city : user.extra.city;
       user.profile.country = req.body.country ? req.body.country : user.extra.country;
-      user.profile.idNumber = req.body.idNumber ? req.body.idNumber : user.extra.idNumber;
       user.profile.email = req.body.email ? req.body.email : user.extra.email;
       user.documents.picture = req.body.picture ? req.body.picture : user.extra.picture;
       user.documents.passport = req.body.passport ? req.body.passport : user.extra.passport;
