@@ -4,7 +4,7 @@ hr
 form.form-horizontal(action='', method='post', style='padding:5%')
   .form-group
     label(for='name') Name
-    input.form-control(type='name', name='name', id='name', placeholder='Name', autofocus, required)
+    input.form-control(type='text', name='name', id='name', placeholder='Name', autofocus, required)
   .form-group
     label(for='gender') Gender
     br
@@ -18,13 +18,13 @@ form.form-horizontal(action='', method='post', style='padding:5%')
     br
   .form-group
     label(for='birthDay') Date of birth
-    input.form-control(type='birthDay', name='birthDay', id='birthDay', placeholder='Date of birth', required)
+    input.form-control(type='date', name='birthDay', id='birthDay', placeholder='Date of birth', required)
   .form-group
     label(for='country') Country
-    input.form-control(type='country', name='country', id='country', placeholder='Country', required)
+    input.form-control(type='text', name='country', id='country', placeholder='Country', required)
   .form-group
     label(for='city') City
-    input.form-control(type='city', name='city', id='city', placeholder='City', required)
+    input.form-control(type='text', name='city', id='city', placeholder='City', required)
   .form-group
     label(for='email') Email
     input.form-control(type='email', name='email', id='email', placeholder='Email')

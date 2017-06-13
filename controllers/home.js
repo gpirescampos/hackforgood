@@ -7,3 +7,13 @@ exports.index = (req, res) => {
     title: 'Home'
   });
 };
+
+/**
+ * GET /
+ * Login page.
+ */
+exports.getLogin = (req, res) => {
+  res.render('login', {
+    title: 'Login'
+  });
+};

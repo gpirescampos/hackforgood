@@ -105,6 +105,8 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
  * Primary app routes.
  */
 app.get('/', homeController.index);
+app.get('/login', homeController.getLogin);
+app.get('/preregister', preController.getPreRegister);
 app.get('/preregister/:step', preController.getPreRegister);
 
 
