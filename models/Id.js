@@ -29,6 +29,7 @@ const idSchema = new mongoose.Schema({
 
   extra: {
     contractAddress: { type: String, unique: true },
+    accountAddress: { type: String, unique: true },
     profileHash: { type: String, unique: true },
     bioHash: { type: String, unique: true }
   }
@@ -54,11 +55,19 @@ idSchema.pre('save', function save(next) {
  * Hash full profile
  */
 idSchema.methods.hashProfile = function hash() {
+  if (this.profile.name && this.profile.gender && this.profile.birthDay && this.profile.city && this.profile.country && this.profile.email && this.fingerPrint && this.irisScan && this.facialRecognition) {
+    const dataToHash = this.profile.name + this.profile.gender + this.profile.birthDay.toString() + this.profile.city + this.profile.country + this.profile.email;
+    const bioToHash = this.fingerPrint + this.irisScan + this.facialRecognition;
+    this.extra.profileHash = crypto.createHash('sha256').update(dataToHash).digest('hex');
+    this.extra.bioHash = crypto.createHash('sha256').update(bioToHash).digest('hex');
+  }
+};
+
+/**
+ * Generate token
+ */
+idSchema.methods.generateToken = function hash() {
   const rand = crypto.randomBytes(64);
-  const dataToHash = this.profile.name + this.profile.gender + this.profile.birthDay.toString() + this.profile.city + this.profile.country + this.profile.email;
-  const bioToHash = this.fingerPrint + this.irisScan + this.facialRecognition;
-  this.extra.profileHash = crypto.createHash('sha256').update(dataToHash).digest('hex');
-  this.extra.bioHash = crypto.createHash('sha256').update(bioToHash).digest('hex');
   this.token = crypto.createHash('sha256').update(rand).digest('hex');
 };
 

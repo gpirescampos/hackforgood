@@ -8,9 +8,6 @@ const mongo = CONSTANTS.MONGO_SERVER + ':' + CONSTANTS.MONGO_PORT;
 
 module.exports.createId = (req, res, next) => {
   const id = new ID({
-    fingerPrint: req.body.fingerPrint,
-    irisScan: req.body.irisScan,
-    facialRecognition: req.body.facialRecognition,
     password: req.body.password,
     profile: {
       name: req.body.name,
@@ -19,12 +16,9 @@ module.exports.createId = (req, res, next) => {
       city: req.body.city,
       country: req.body.country,
       email: req.body.email
-    },
-    extra: {
-      contractAddress: req.body.contractAddress
     }
   });
-  id.hashProfile();
+  id.generateToken();
   id.save((err, data) => {
     if (err) {
       return next(new Error(err));
@@ -49,20 +43,27 @@ module.exports.updateId = (req, res, next) => {
   }).select('')
   .exec((err, user) => {
     if (!err) {
-      user.password = req.body.password ? req.body.password : user.extra.password;
-      user.profile.name = req.body.name ? req.body.name : user.extra.name;
-      user.profile.gender = req.body.gender ? req.body.gender : user.extra.gender;
-      user.profile.birthDay = req.body.birthDay ? req.body.birthDay : user.extra.birthDay;
-      user.profile.city = req.body.city ? req.body.city : user.extra.city;
-      user.profile.country = req.body.country ? req.body.country : user.extra.country;
-      user.profile.email = req.body.email ? req.body.email : user.extra.email;
-      user.documents.picture = req.body.picture ? req.body.picture : user.extra.picture;
-      user.documents.passport = req.body.passport ? req.body.passport : user.extra.passport;
-      user.documents.idCard = req.body.idCard ? req.body.idCard : user.extra.idCard;
-      user.documents.birthCertificate = req.body.birthCertificate ? req.body.birthCertificate : user.extra.birthCertificate;
-      user.documents.proofOfResidence = req.body.proofOfResidence ? req.body.proofOfResidence : user.extra.proofOfResidence;
-      user.documents.drivingLicense = req.body.drivingLicense ? req.body.drivingLicense : user.extra.drivingLicense;
-      user.extra.contractAddress = req.body.contractAddress ? req.body.contractAddress : user.extra.contractAddress;
+      console.log(req.body);
+      console.log(user);
+      user.fingerPrint = !req.body.fingerPrint ? user.fingerPrint : req.body.fingerPrint;
+      user.irisScan = !req.body.irisScan ? user.irisScan : req.body.irisScan;
+      user.facialRecognition = !req.body.facialRecognition ? user.facialRecognition : req.body.facialRecognition;
+      user.password = !req.body.password ? user.password : req.body.password;
+      user.profile.name = !req.body.name ? user.profile.name : req.body.name;
+      user.profile.gender = !req.body.gender ? user.profile.gender : req.body.gender;
+      user.profile.birthDay = !req.body.birthDay ? user.profile.birthDay : req.body.birthDay;
+      user.profile.city = !req.body.city ? user.profile.city : req.body.city;
+      user.profile.country = !req.body.country ? user.profile.country : req.body.country;
+      user.profile.email = !req.body.email ? user.profile.email : req.body.email;
+      user.documents.picture = !req.body.picture ? user.documents.picture : req.body.picture;
+      user.documents.passport = !req.body.passport ? user.documents.passport : req.body.passport;
+      user.documents.idCard = !req.body.idCard ? user.documents.idCard : req.body.idCard;
+      user.documents.birthCertificate = !req.body.birthCertificate ? user.documents.birthCertificate : req.body.birthCertificate;
+      user.documents.proofOfResidence = !req.body.proofOfResidence ? user.documents.proofOfResidence : req.body.proofOfResidence;
+      user.documents.drivingLicense = !req.body.drivingLicense ? user.documents.drivingLicense : req.body.drivingLicense;
+      user.extra.contractAddress = !req.body.contractAddress ? user.extra.contractAddress : req.body.contractAddress;
+      user.extra.accountAddress = !req.body.accountAddress ? user.extra.accountAddress : req.body.accountAddress;
+      user.hashProfile();
       user.save((err, id) => {
         if (!err) res.json(id).end();
       });

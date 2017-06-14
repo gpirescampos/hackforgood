@@ -107,8 +107,10 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
 app.get('/', homeController.index);
 app.get('/login', homeController.getLogin);
 app.get('/preregister', preController.getPreRegister);
-app.get('/preregister/:step', preController.getPreRegister);
-
+app.get('/preregister/:step/:token', preController.getPreRegister);
+app.post('/initId', preController.initId);
+app.post('/saveFaceRecon', preController.saveFaceRecon);
+app.post('/saveFingerprint', preController.saveFingerprint);
 
 /**
  * IPFS routes

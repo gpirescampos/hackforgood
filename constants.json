@@ -2,5 +2,6 @@
   "ETHEREUM_SERVER" : "http://localhost",
   "ETHEREUM_PORT" : "8545",
   "MONGO_SERVER" : "http://localhost",
-  "MONGO_PORT" : "9984"
+  "MONGO_PORT" : "9984",
+  "SERVER_URL" : "http://localhost:3000"
 }

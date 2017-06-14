@@ -14,5 +14,6 @@ hr
   strong Success!
   |  Facial recognition done
 br
-.form-group
-  input.btn.btn-info(type='submit' value='Next')
+form.form-horizontal(action='saveFaceRecon', method='post')
+  input(type='hidden', name='token', value=token)
+  button.btn.btn-info(value='Next') Next

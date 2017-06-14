@@ -11,5 +11,6 @@ hr
   strong Success!
   |  Fingerprint scanned
 br
-.form-group
-  input.btn.btn-info(type='submit' value='Next')
+form.form-horizontal(action='saveFingerprint', method='post')
+  input(type='hidden', name='token', value=token)
+  button.btn.btn-info(value='Next') Next
