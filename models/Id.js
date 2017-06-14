@@ -36,22 +36,6 @@ const idSchema = new mongoose.Schema({
 }, { timestamps: true });
 
 /**
- * Password hash middleware.
- */
-idSchema.pre('save', function save(next) {
-  const user = this;
-  if (!user.isModified('password')) { return next(); }
-  bcrypt.genSalt(10, (err, salt) => {
-    if (err) { return next(err); }
-    bcrypt.hash(user.password, salt, null, (err, hash) => {
-      if (err) { return next(err); }
-      user.password = hash;
-      next();
-    });
-  });
-});
-
-/**
  * Hash full profile
  */
 idSchema.methods.hashProfile = function hash() {
@@ -69,15 +53,6 @@ idSchema.methods.hashProfile = function hash() {
 idSchema.methods.generateToken = function hash() {
   const rand = crypto.randomBytes(64);
   this.token = crypto.createHash('sha256').update(rand).digest('hex');
-};
-
-/**
- * Helper method for validating user's password.
- */
-idSchema.methods.comparePassword = function comparePassword(candidatePassword, cb) {
-  bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
-    cb(err, isMatch);
-  });
 };
 
 const ID = mongoose.model('ID', idSchema);

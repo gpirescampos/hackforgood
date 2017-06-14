@@ -48,7 +48,6 @@ module.exports.saveFaceRecon = (req, res, next) => {
   request(
     requestOptions, (err, response, body) => {
       if (err) return next(new Error(err));
-      console.log(body);
       res.render('preregister', {
         title: 'Pre-Registration',
         step: 2,
@@ -59,24 +58,51 @@ module.exports.saveFaceRecon = (req, res, next) => {
 };
 
 module.exports.saveFingerprint = (req, res, next) => {
-  const path = '/api/mongo/updateId/' + req.body.token;
+  const path = '/api/mongo/getId/' + req.body.token;
   const requestOptions = {
     url: server + path,
-    method: 'POST',
-    form: {
-      fingerPrint: crypto.createHash('sha256').update(crypto.randomBytes(64)).digest('hex')
-    },
-    json: true
+    method: 'GET'
   };
   request(
     requestOptions, (err, response, body) => {
       if (err) return next(new Error(err));
-      console.log(body);
-      res.render('preregister', {
-        title: 'Pre-Registration',
-        step: 3,
-        token: req.body.token,
-      });
+      const path = '/api/eth/newAccount';
+      const requestOptions = {
+        url: server + path,
+        method: 'POST',
+        form: {
+          password: JSON.parse(response.body).password
+        },
+        json: true
+      };
+      request(
+        requestOptions, (err, response, body) => {
+          if (err) return next(new Error(err));
+          const path = '/api/mongo/updateId/' + req.body.token;
+          const requestOptions = {
+            url: server + path,
+            method: 'POST',
+            form: {
+              fingerPrint: crypto.createHash('sha256').update(crypto.randomBytes(64)).digest('hex'),
+              accountAddress: body
+            },
+            json: true
+          };
+          request(
+            requestOptions, (err, response, body) => {
+              if (err) return next(new Error(err));
+              res.render('preregister', {
+                title: 'Pre-Registration',
+                step: 3,
+                token: body.profile.token,
+                name: body.profile.name,
+                city: body.profile.city,
+                country: body.profile.country
+              });
+            }
+          );
+        }
+      );
     }
   );
 };

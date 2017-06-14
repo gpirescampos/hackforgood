@@ -30,7 +30,7 @@ module.exports.createId = (req, res, next) => {
 module.exports.getId = (req, res, next) => {
   ID.findOne({
     token: req.params.token
-  }).select('')
+  }).lean()
   .exec((err, user) => {
     if (!err) res.json(user).end();
     else return next(new Error(err));
@@ -43,8 +43,6 @@ module.exports.updateId = (req, res, next) => {
   }).select('')
   .exec((err, user) => {
     if (!err) {
-      console.log(req.body);
-      console.log(user);
       user.fingerPrint = !req.body.fingerPrint ? user.fingerPrint : req.body.fingerPrint;
       user.irisScan = !req.body.irisScan ? user.irisScan : req.body.irisScan;
       user.facialRecognition = !req.body.facialRecognition ? user.facialRecognition : req.body.facialRecognition;
@@ -66,6 +64,7 @@ module.exports.updateId = (req, res, next) => {
       user.hashProfile();
       user.save((err, id) => {
         if (!err) res.json(id).end();
+        else return next(new Error(err));
       });
     } else return next(new Error(err));
   });
