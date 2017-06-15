@@ -37,8 +37,8 @@ const idSchema = new mongoose.Schema({
   location: [{
     name: String,
     dateCreated: Date,
-    latitude: Float32Array,
-    longitude: Float32Array
+    latitude: Number,
+    longitude: Number
   }],
 
   extra: {

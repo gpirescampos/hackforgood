@@ -112,6 +112,7 @@ app.post('/initId', preController.initId);
 app.post('/saveFaceRecon', preController.saveFaceRecon);
 app.post('/saveFingerprint', preController.saveFingerprint);
 app.get('/details/:token', preController.loadDetails);
+app.get('/pending', preController.loadPending);
 
 /**
  * IPFS routes

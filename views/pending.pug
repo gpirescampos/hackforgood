@@ -1,0 +1,33 @@
+extends layout
+
+block content
+  h1 Pending validations
+  hr
+  .panel.panel-default
+    .panel-body
+      .container(style='width:100%')
+        table.table.table-striped
+          thead
+            tr
+              th #
+              th Name
+              th Type
+              th Detail
+              th Validate
+          tbody
+            tr
+              td 1
+              td Guilherme campos
+              td 12/12/12
+              td New entry
+              td 
+                button.btn.btn-default.btn-sm(type='button')
+                  span.glyphicon.glyphicon-ok
+            tr
+              td 1
+              td ID
+              td 12/12/12
+              td ID Document
+              td 
+                button.btn.btn-default.btn-sm(type='button')
+                  span.glyphicon.glyphicon-ok

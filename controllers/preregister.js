@@ -113,3 +113,9 @@ module.exports.loadDetails = (req, res, next) => {
     token: (req.params && req.params.token) ? req.params.token : ''
   });
 };
+
+module.exports.loadPending = (req, res, next) => {
+  res.render('pending', {
+    title: 'Pending'
+  });
+};
