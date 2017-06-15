@@ -1,0 +1,116 @@
+extends layout
+
+block content
+  h1 Home
+  hr
+  #accordion.panel-group
+    .panel.panel-default
+      .panel-heading
+        h4.panel-title
+          a(data-toggle='collapse', data-parent='#accordion', href='#collapse1')
+            | Details
+      #collapse1.panel-collapse.collapse.in
+        .panel-body
+          .media
+            .media-left
+              img.media-object.img-thumbnail(src='/images/avatar.jpg', style='width:100px')
+            .media-body
+              .container-fluid
+                .row
+                  .col-lg
+                  .col-sm-3
+                    p Name | Guilherme Campos 
+                  .col-sm-3
+                    p Date of Birth | 21/03/89
+                  .col-sm-3
+                    p Gender | Male
+                .row
+                  .col-sm-3
+                    p Country | Portugal
+                  .col-sm-3
+                    p City | Lisboa
+                  .col-sm-3
+    .panel.panel-default
+      .panel-heading
+        h4.panel-title
+          a(data-toggle='collapse', data-parent='#accordion', href='#collapse2')
+            | Documents
+      #collapse2.panel-collapse.collapse
+        .panel-body
+          .container(style='width:100%')
+            table.table.table-striped
+              thead
+                tr
+                  th #
+                  th Name
+                  th Date
+                  th Validated
+                  th Download
+              tbody
+                tr
+                  td 1
+                  td ID
+                  td 12/12/12
+                  td
+                    span.glyphicon.glyphicon-remove
+                  td 
+                    button.btn.btn-default.btn-sm(type='button')
+                      span.glyphicon.glyphicon-download
+                tr
+                  td 1
+                  td ID
+                  td 12/12/12
+                  td
+                    span.glyphicon.glyphicon-ok
+                  td 
+                    button.btn.btn-default.btn-sm(type='button')
+                      span.glyphicon.glyphicon-download
+                tr
+                  td 1
+                  td ID
+                  td 12/12/12
+                  td
+                    span.glyphicon.glyphicon-ok
+                  td 
+                    button.btn.btn-default.btn-sm(type='button')
+                      span.glyphicon.glyphicon-download
+          button.btn.btn-warning(type='button') Upload
+    .panel.panel-default
+      .panel-heading
+        h4.panel-title
+          a(data-toggle='collapse', data-parent='#accordion', href='#collapse3')
+            | Journey
+      #collapse3.panel-collapse.collapse
+        .panel-body
+          .container(style='width:100%')
+            table.table.table-striped
+              thead
+                tr
+                  th #
+                  th Location
+                  th Name
+                  th Date
+                  th Latitude
+                  th Longitude
+              tbody
+                tr
+                  td 1
+                  td Syria
+                  td Border
+                  td 12/12/12
+                  td 12
+                  td 58
+                tr
+                  td 1
+                  td Syria
+                  td Refugee Camp
+                  td 12/12/12
+                  td 12
+                  td 58
+                tr
+                  td 1
+                  td Syria
+                  td Border
+                  td 12/12/12
+                  td 12
+                  td 58

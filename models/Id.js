@@ -3,9 +3,18 @@ const mongoose = require('mongoose');
 const crypto = require('crypto');
 
 const idSchema = new mongoose.Schema({
-  fingerPrint: { type: String, unique: true },
-  irisScan: { type: String, unique: true },
-  facialRecognition: { type: String, unique: true },
+  fingerPrint: {
+    type: String,
+    unique: true
+  },
+  irisScan: {
+    type: String,
+    unique: true
+  },
+  facialRecognition: {
+    type: String,
+    unique: true
+  },
   password: String,
   token: String,
 
@@ -19,21 +28,40 @@ const idSchema = new mongoose.Schema({
   },
 
   documents: {
-    picture: String,
-    passport: String,
-    idCard: String,
-    birthCertificate: String,
-    proofOfResidence: String,
-    drivingLicense: String
+    name: String,
+    dateUploaded: Date,
+    hash: String,
+    validated: Boolean
   },
 
+  location: [{
+    name: String,
+    dateCreated: Date,
+    latitude: Float32Array,
+    longitude: Float32Array
+  }],
+
   extra: {
-    contractAddress: { type: String, unique: true },
-    accountAddress: { type: String, unique: true },
-    profileHash: { type: String, unique: true },
-    bioHash: { type: String, unique: true }
+    contractAddress: {
+      type: String,
+      unique: true
+    },
+    accountAddress: {
+      type: String,
+      unique: true
+    },
+    profileHash: {
+      type: String,
+      unique: true
+    },
+    bioHash: {
+      type: String,
+      unique: true
+    }
   }
-}, { timestamps: true });
+}, {
+  timestamps: true
+});
 
 /**
  * Hash full profile

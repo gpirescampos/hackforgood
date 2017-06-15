@@ -111,6 +111,7 @@ app.get('/preregister/:step/:token', preController.getPreRegister);
 app.post('/initId', preController.initId);
 app.post('/saveFaceRecon', preController.saveFaceRecon);
 app.post('/saveFingerprint', preController.saveFingerprint);
+app.get('/details/:token', preController.loadDetails);
 
 /**
  * IPFS routes
@@ -134,6 +135,8 @@ app.post('/api/eth/updatePerson/:contractAddress', ethereumController.updatePers
 app.post('/api/mongo/createId', mongoController.createId);
 app.get('/api/mongo/getId/:token', mongoController.getId);
 app.post('/api/mongo/updateId/:token', mongoController.updateId);
+app.post('/api/mongo/addDocument/:token', mongoController.addDocument);
+app.post('/api/mongo/addLocation/:token', mongoController.addLocation);
 
 /**
  * Error Handler.

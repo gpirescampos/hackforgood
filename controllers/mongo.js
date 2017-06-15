@@ -53,15 +53,61 @@ module.exports.updateId = (req, res, next) => {
       user.profile.city = !req.body.city ? user.profile.city : req.body.city;
       user.profile.country = !req.body.country ? user.profile.country : req.body.country;
       user.profile.email = !req.body.email ? user.profile.email : req.body.email;
-      user.documents.picture = !req.body.picture ? user.documents.picture : req.body.picture;
-      user.documents.passport = !req.body.passport ? user.documents.passport : req.body.passport;
-      user.documents.idCard = !req.body.idCard ? user.documents.idCard : req.body.idCard;
-      user.documents.birthCertificate = !req.body.birthCertificate ? user.documents.birthCertificate : req.body.birthCertificate;
-      user.documents.proofOfResidence = !req.body.proofOfResidence ? user.documents.proofOfResidence : req.body.proofOfResidence;
-      user.documents.drivingLicense = !req.body.drivingLicense ? user.documents.drivingLicense : req.body.drivingLicense;
       user.extra.contractAddress = !req.body.contractAddress ? user.extra.contractAddress : req.body.contractAddress;
       user.extra.accountAddress = !req.body.accountAddress ? user.extra.accountAddress : req.body.accountAddress;
       user.hashProfile();
+      user.save((err, id) => {
+        if (!err) res.json(id).end();
+        else return next(new Error(err));
+      });
+    } else return next(new Error(err));
+  });
+};
+
+module.exports.addDocument = (req, res, next) => {
+  ID.findOne({
+    token: req.params.token
+  }).select('')
+  .exec((err, user) => {
+    if (!err) {
+      user.documents.push(new mongoose.Schema({
+        name: req.body.name,
+        dateUploaded: Date.now(),
+        hash: req.body.hash,
+        validated: req.body.validated
+      }));
+      user.save((err, id) => {
+        if (!err) res.json(id).end();
+        else return next(new Error(err));
+      });
+    } else return next(new Error(err));
+  });
+};
+
+module.exports.validateDocument = (req, res, next) => {
+  ID.findOne({
+    token: req.params.token
+  }).select('')
+  .exec((err, user) => {
+    user.update({ 'documents.hash': req.body.hash}, { $set: { 'documents.$.validated': true } }, (err, result) => {
+      if (!err) res.json(result).end();
+      else return next(new Error(err));
+    });
+  });
+};
+
+module.exports.addLocation = (req, res, next) => {
+  ID.findOne({
+    token: req.params.token
+  }).select('')
+  .exec((err, user) => {
+    if (!err) {
+      user.location.push(new mongoose.Schema({
+        name: req.body.name,
+        dateCreated: Date.now(),
+        latitude: req.body.latitude,
+        longitude: req.body.longitude
+      }));
       user.save((err, id) => {
         if (!err) res.json(id).end();
         else return next(new Error(err));
