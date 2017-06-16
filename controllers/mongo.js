@@ -7,12 +7,14 @@ const chrono = require('chrono-node')
 const mongo = CONSTANTS.MONGO_SERVER + ':' + CONSTANTS.MONGO_PORT;
 
 module.exports.createId = (req, res, next) => {
+  console.log(chrono.parseDate(req.body.birthDay));
+  console.log(req.body.birthDay);
   const id = new ID({
     password: req.body.password,
     profile: {
       name: req.body.name,
       gender: req.body.gender,
-      birthDay: chrono.parseDate(req.body.birthday),
+      birthDay: chrono.parseDate(req.body.birthDay),
       city: req.body.city,
       country: req.body.country,
       email: req.body.email

@@ -3,18 +3,9 @@ const mongoose = require('mongoose');
 const crypto = require('crypto');
 
 const idSchema = new mongoose.Schema({
-  fingerPrint: {
-    type: String,
-    unique: true
-  },
-  irisScan: {
-    type: String,
-    unique: true
-  },
-  facialRecognition: {
-    type: String,
-    unique: true
-  },
+  fingerPrint: String,
+  irisScan: String,
+  facialRecognition: String,
   password: String,
   token: String,
 
@@ -42,22 +33,10 @@ const idSchema = new mongoose.Schema({
   }],
 
   extra: {
-    contractAddress: {
-      type: String,
-      unique: true
-    },
-    accountAddress: {
-      type: String,
-      unique: true
-    },
-    profileHash: {
-      type: String,
-      unique: true
-    },
-    bioHash: {
-      type: String,
-      unique: true
-    }
+    contractAddress: String,
+    accountAddress: String,
+    profileHash: String,
+    bioHash: String
   }
 }, {
   timestamps: true
