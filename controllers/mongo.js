@@ -37,6 +37,14 @@ module.exports.getId = (req, res, next) => {
   });
 };
 
+module.exports.getAll = (req, res, next) => {
+  ID.find({}).lean()
+  .exec((err, users) => {
+    if (!err) res.json(users).end();
+    else return next(new Error(err));
+  });
+};
+
 module.exports.updateId = (req, res, next) => {
   ID.findOne({
     token: req.params.token

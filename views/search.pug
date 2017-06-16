@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  h1 Search
+  hr
+  form.form-horizontal(action='', method='post', style='padding:5%')
+    .form-group
+      label Token
+      input.form-control(list='tokens', type='text', name='token', id='token', placeholder='token', autofocus, required)
+      datalist#tokens
+        for token in tokens
+          option(value=token)

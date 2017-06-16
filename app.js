@@ -105,14 +105,15 @@ app.use(express.static(path.join(__dirname, 'public'), { maxAge: 31557600000 }))
  * Primary app routes.
  */
 app.get('/', homeController.index);
-app.get('/login', homeController.getLogin);
+app.get('/login', homeController.index);
+app.get('/details/:token', homeController.loadDetails);
+app.get('/pending', homeController.loadPending);
+app.get('/search', homeController.loadSearch);
 app.get('/preregister', preController.getPreRegister);
 app.get('/preregister/:step/:token', preController.getPreRegister);
 app.post('/initId', preController.initId);
 app.post('/saveFaceRecon', preController.saveFaceRecon);
 app.post('/saveFingerprint', preController.saveFingerprint);
-app.get('/details/:token', preController.loadDetails);
-app.get('/pending', preController.loadPending);
 
 /**
  * IPFS routes
@@ -138,6 +139,7 @@ app.get('/api/mongo/getId/:token', mongoController.getId);
 app.post('/api/mongo/updateId/:token', mongoController.updateId);
 app.post('/api/mongo/addDocument/:token', mongoController.addDocument);
 app.post('/api/mongo/addLocation/:token', mongoController.addLocation);
+app.get('/api/mongo/getAll', mongoController.getAll);
 
 /**
  * Error Handler.

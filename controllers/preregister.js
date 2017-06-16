@@ -106,16 +106,3 @@ module.exports.saveFingerprint = (req, res, next) => {
     }
   );
 };
-
-module.exports.loadDetails = (req, res, next) => {
-  res.render('details', {
-    title: 'Details',
-    token: (req.params && req.params.token) ? req.params.token : ''
-  });
-};
-
-module.exports.loadPending = (req, res, next) => {
-  res.render('pending', {
-    title: 'Pending'
-  });
-};
