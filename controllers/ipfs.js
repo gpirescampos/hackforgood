@@ -1,6 +1,9 @@
 const ipfsAPI = require('ipfs-api');
 const crypto = require('crypto');
 const fs = require('fs');
+const CONSTANTS = require('../constants');
+const request = require('request');
+const server = CONSTANTS.SERVER_URL;
 
 const ipfs = ipfsAPI('localhost', '5001', {
   protocol: 'http'
@@ -21,9 +24,10 @@ const encrypt = (buffer) => {
 };
 
 module.exports.uploadDocument = (req, res, next) => {
-  console.log(req.file);
-  console.log(req.body);
   let file;
+  let path;
+  let requestOptions;
+  const token = req.body.token;
   if (req.file.path) {
     fs.readFile(req.file.path, (err, data) => {
       if (err) return next(new Error(err));
@@ -32,7 +36,22 @@ module.exports.uploadDocument = (req, res, next) => {
           return next(new Error(err));
         } else if (result.length === 1) {
           file = result[0];
-          res.json(file).end();
+          console.log(file);
+          path = '/api/mongo/addDocument/' + token;
+          requestOptions = {
+            url: server + path,
+            method: 'POST',
+            json: {
+              name: req.file.originalName,
+              hash: file.hash
+            }
+          };
+          request(
+            requestOptions, (err, response) => {
+              console.log(req.headers.host + '/details/' + token);
+              res.redirect('/details/' + token);
+            }
+          );
         }
       });
     });

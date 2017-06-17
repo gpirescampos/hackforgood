@@ -2,9 +2,9 @@ const CONSTANTS = require('../constants');
 const mongoose = require('mongoose');
 const crypto = require('crypto');
 const ID = require('../models/Id');
-const chrono = require('chrono-node')
+const chrono = require('chrono-node');
 
-const mongo = CONSTANTS.MONGO_SERVER + ':' + CONSTANTS.MONGO_PORT;
+const mongo = `${CONSTANTS.MONGO_SERVER  }:${  CONSTANTS.MONGO_PORT}`;
 
 module.exports.createId = (req, res, next) => {
   console.log(chrono.parseDate(req.body.birthDay));
@@ -75,23 +75,18 @@ module.exports.updateId = (req, res, next) => {
 };
 
 module.exports.addDocument = (req, res, next) => {
-  ID.findOne({
-    token: req.params.token
-  }).select('')
-  .exec((err, user) => {
-    if (!err) {
-      user.documents.push(new mongoose.Schema({
-        name: req.body.name,
-        dateUploaded: Date.now(),
-        hash: req.body.hash,
-        validated: req.body.validated
-      }));
-      user.save((err, id) => {
-        if (!err) res.json(id).end();
-        else return next(new Error(err));
-      });
-    } else return next(new Error(err));
-  });
+  const doc = {
+    name: req.body.name,
+    dateUploaded: Date.now(),
+    hash: req.body.hash,
+    validated: false
+  };
+  ID.update({ token: req.params.token },
+    { $push: { documents: doc } },
+    { upsert: true }, (err, data) => {
+      if (!err) res.json(data).end();
+      else return next(new Error(err));
+    });
 };
 
 module.exports.validateDocument = (req, res, next) => {
@@ -99,7 +94,7 @@ module.exports.validateDocument = (req, res, next) => {
     token: req.params.token
   }).select('')
   .exec((err, user) => {
-    user.update({ 'documents.hash': req.body.hash}, { $set: { 'documents.$.validated': true } }, (err, result) => {
+    user.update({ 'documents.hash': req.body.hash }, { $set: { 'documents.$.validated': true } }, (err, result) => {
       if (!err) res.json(result).end();
       else return next(new Error(err));
     });

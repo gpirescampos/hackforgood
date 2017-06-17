@@ -20,10 +20,10 @@ module.exports.loadDetails = (req, res, next) => {
   };
   request(
     requestOptions, (err, response, body) => {
-      console.log(JSON.parse(response.body).profile);
       if (err) return next(new Error(err));
       res.render('details', {
         title: 'Details',
+        token: JSON.parse(response.body).token,
         details: JSON.parse(response.body).profile,
         documents: JSON.parse(response.body).documents,
         locations: JSON.parse(response.body).location
