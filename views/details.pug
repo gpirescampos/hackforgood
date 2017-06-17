@@ -50,30 +50,18 @@ block content
                   th Validated
                   th Download
               tbody
+              - var i = 0
+              for doc in documents
+               - i++
                 tr
-                  td 1
-                  td ID
-                  td 12/12/12
+                  td= i
+                  td= doc.name
+                  td= doc.dateUploaded
                   td
-                    span.glyphicon.glyphicon-remove
-                  td 
-                    button.btn.btn-default.btn-sm(type='button')
-                      span.glyphicon.glyphicon-download
-                tr
-                  td 1
-                  td ID
-                  td 12/12/12
-                  td
-                    span.glyphicon.glyphicon-ok
-                  td 
-                    button.btn.btn-default.btn-sm(type='button')
-                      span.glyphicon.glyphicon-download
-                tr
-                  td 1
-                  td ID
-                  td 12/12/12
-                  td
-                    span.glyphicon.glyphicon-ok
+                    if doc.validated == true
+                      span.glyphicon.glyphicon-ok
+                    else 
+                      span.glyphicon.glyphicon-remove
                   td 
                     button.btn.btn-default.btn-sm(type='button')
                       span.glyphicon.glyphicon-download
