@@ -36,7 +36,6 @@ module.exports.uploadDocument = (req, res, next) => {
           return next(new Error(err));
         } else if (result.length === 1) {
           file = result[0];
-          console.log(file);
           path = '/api/mongo/addDocument/' + token;
           requestOptions = {
             url: server + path,
@@ -48,7 +47,6 @@ module.exports.uploadDocument = (req, res, next) => {
           };
           request(
             requestOptions, (err, response) => {
-              console.log(req.headers.host + '/details/' + token);
               res.redirect('/details/' + token);
             }
           );
