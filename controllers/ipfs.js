@@ -41,8 +41,9 @@ module.exports.uploadDocument = (req, res, next) => {
             url: server + path,
             method: 'POST',
             json: {
-              name: req.file.originalName,
-              hash: file.hash
+              name: req.file.originalname.toString(),
+              hash: file.hash,
+              type: req.file.originalname.split('.')[1].toString()
             }
           };
           request(

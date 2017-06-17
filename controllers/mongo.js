@@ -79,8 +79,10 @@ module.exports.addDocument = (req, res, next) => {
     name: req.body.name,
     dateUploaded: Date.now(),
     hash: req.body.hash,
-    validated: false
+    validated: false,
+    docType: req.body.type
   };
+  console.log(doc);
   ID.update({ token: req.params.token },
     { $push: { documents: doc } },
     { upsert: true }, (err, data) => {

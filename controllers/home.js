@@ -1,5 +1,7 @@
 const CONSTANTS = require('../constants');
 const request = require('request');
+const fs = require('fs');
+const path = require('path');
 const server = CONSTANTS.SERVER_URL;
 
 /**
@@ -13,7 +15,7 @@ exports.index = (req, res) => {
 };
 
 module.exports.loadDetails = (req, res, next) => {
-  const path = '/api/mongo/getId/' + req.params.token;
+  const path = `/api/mongo/getId/${  req.params.token}`;
   const requestOptions = {
     url: server + path,
     method: 'GET'
@@ -55,3 +57,19 @@ module.exports.loadSearch = (req, res, next) => {
   );
 };
 
+module.exports.preview = (req, res, next) => {
+  const path = '/api/ipfs/download/' + req.params.hash;
+  const requestOptions = {
+    url: server + path,
+    method: 'GET'
+  };
+  request(
+    requestOptions, (err, response, body) => {
+      if (err) return next(new Error(err));
+      fs.writeFile('public/downloads/file.' + req.params.type, body, (err) => {
+        if (err) throw err;
+        res.redirect('/downloads/file.'+req.params.type);
+      });
+    }
+  );
+};

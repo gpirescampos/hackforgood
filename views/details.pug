@@ -63,7 +63,7 @@ block content
                     else 
                       span.glyphicon.glyphicon-remove
                   td 
-                    button.btn.btn-default.btn-sm(type='button')
+                    button.btn.btn-default.btn-sm(type='button', onclick="window.open('/preview/"+doc.hash+"/"+doc.docType+"')")
                       span.glyphicon.glyphicon-download
             form(action='/api/ipfs/upload', method='POST', enctype='multipart/form-data')
               | Select a file to upload:

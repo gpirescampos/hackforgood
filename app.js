@@ -111,6 +111,7 @@ app.get('/login', homeController.index);
 app.get('/details/:token', homeController.loadDetails);
 app.get('/pending', homeController.loadPending);
 app.get('/search', homeController.loadSearch);
+app.get('/preview/:hash/:type', homeController.preview);
 app.get('/preregister', preController.getPreRegister);
 app.get('/preregister/:step/:token', preController.getPreRegister);
 app.post('/initId', preController.initId);

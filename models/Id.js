@@ -22,7 +22,8 @@ const idSchema = new mongoose.Schema({
     name: String,
     dateUploaded: Date,
     hash: String,
-    validated: Boolean
+    validated: Boolean,
+    docType: String
   },
 
   location: [{
