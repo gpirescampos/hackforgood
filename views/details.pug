@@ -77,7 +77,10 @@ block content
                   td 
                     button.btn.btn-default.btn-sm(type='button')
                       span.glyphicon.glyphicon-download
-          button.btn.btn-warning(type='button') Upload
+            form(action='/api/ipfs/upload', method='POST', enctype='multipart/form-data')
+              | Select a file to upload:
+              input(type='file', name='document')
+              input(type='submit', value='Upload')
     .panel.panel-default
       .panel-heading
         h4.panel-title

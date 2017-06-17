@@ -21,6 +21,8 @@ const encrypt = (buffer) => {
 };
 
 module.exports.uploadDocument = (req, res, next) => {
+  console.log(req.file);
+  console.log(req.body);
   let file;
   if (req.file.path) {
     fs.readFile(req.file.path, (err, data) => {

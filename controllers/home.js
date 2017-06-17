@@ -54,3 +54,4 @@ module.exports.loadSearch = (req, res, next) => {
     }
   );
 };
+
