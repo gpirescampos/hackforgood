@@ -8,6 +8,7 @@ const idSchema = new mongoose.Schema({
   facialRecognition: String,
   password: String,
   token: String,
+  active: Boolean,
 
   profile: {
     name: String,

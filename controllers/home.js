@@ -1,7 +1,6 @@
 const CONSTANTS = require('../constants');
 const request = require('request');
 const fs = require('fs');
-const path = require('path');
 const server = CONSTANTS.SERVER_URL;
 
 /**
@@ -15,7 +14,7 @@ exports.index = (req, res) => {
 };
 
 module.exports.loadDetails = (req, res, next) => {
-  const path = `/api/mongo/getId/${  req.params.token}`;
+  const path = `/api/mongo/getId/${req.params.token}`;
   const requestOptions = {
     url: server + path,
     method: 'GET'
@@ -26,6 +25,7 @@ module.exports.loadDetails = (req, res, next) => {
       res.render('details', {
         title: 'Details',
         token: JSON.parse(response.body).token,
+        active: JSON.parse(response.body).active,
         details: JSON.parse(response.body).profile,
         documents: JSON.parse(response.body).documents,
         locations: JSON.parse(response.body).location
@@ -34,7 +34,25 @@ module.exports.loadDetails = (req, res, next) => {
   );
 };
 
-module.exports.loadPending = (req, res) => {
+module.exports.loadPending = (req, res, next) => {
+  const path = `/api/mongo/getId/${req.params.token}`;
+  const requestOptions = {
+    url: server + path,
+    method: 'GET'
+  };
+  request(
+    requestOptions, (err, response, body) => {
+      if (err) return next(new Error(err));
+      res.render('details', {
+        title: 'Details',
+        token: JSON.parse(response.body).token,
+        active: JSON.parse(response.body).active,
+        details: JSON.parse(response.body).profile,
+        documents: JSON.parse(response.body).documents,
+        locations: JSON.parse(response.body).location
+      });
+    }
+  );
   res.render('pending', {
     title: 'Pending'
   });
@@ -58,7 +76,7 @@ module.exports.loadSearch = (req, res, next) => {
 };
 
 module.exports.preview = (req, res, next) => {
-  const path = '/api/ipfs/download/' + req.params.hash;
+  const path = `/api/ipfs/download/${req.params.hash}`;
   const requestOptions = {
     url: server + path,
     method: 'GET'
@@ -66,9 +84,9 @@ module.exports.preview = (req, res, next) => {
   request(
     requestOptions, (err, response, body) => {
       if (err) return next(new Error(err));
-      fs.writeFile('public/downloads/file.' + req.params.type, body, (err) => {
+      fs.writeFile(`public/downloads/file.${req.params.type}`, body, (err) => {
         if (err) throw err;
-        res.redirect('/downloads/file.'+req.params.type);
+        res.redirect(`/downloads/file.${req.params.type}`);
       });
     }
   );

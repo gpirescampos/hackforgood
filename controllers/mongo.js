@@ -4,13 +4,12 @@ const crypto = require('crypto');
 const ID = require('../models/Id');
 const chrono = require('chrono-node');
 
-const mongo = `${CONSTANTS.MONGO_SERVER  }:${  CONSTANTS.MONGO_PORT}`;
+const mongo = `${CONSTANTS.MONGO_SERVER}:${CONSTANTS.MONGO_PORT}`;
 
 module.exports.createId = (req, res, next) => {
-  console.log(chrono.parseDate(req.body.birthDay));
-  console.log(req.body.birthDay);
   const id = new ID({
     password: req.body.password,
+    active: false,
     profile: {
       name: req.body.name,
       gender: req.body.gender,
@@ -120,5 +119,30 @@ module.exports.addLocation = (req, res, next) => {
         else return next(new Error(err));
       });
     } else return next(new Error(err));
+  });
+};
+
+module.exports.findPendingUsers = (req, res, next) => {
+  ID.find({
+    active: false
+  }).select('')
+  .exec((err, user) => {
+    if (!err) res.json(user).end();
+    else return next(new Error(err));
+  });
+};
+
+module.exports.findPendingDocuments = (req, res, next) => {
+  let docs = [];
+  ID.find(
+    { 'documents.validated': 'false' }
+  ).select('').exec((err, users) => {
+    if (err) return next(new Error(err));
+    else {
+      for (const user of users) {
+        docs.push(user.documents);
+      }
+      res.json(docs).end();
+    }
   });
 };

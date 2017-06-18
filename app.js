@@ -143,6 +143,8 @@ app.post('/api/mongo/updateId/:token', mongoController.updateId);
 app.post('/api/mongo/addDocument/:token', mongoController.addDocument);
 app.post('/api/mongo/addLocation/:token', mongoController.addLocation);
 app.get('/api/mongo/getAll', mongoController.getAll);
+app.get('/api/mongo/findPendingUsers', mongoController.findPendingUsers);
+app.get('/api/mongo/findPendingDocuments', mongoController.findPendingDocuments);
 
 /**
  * Error Handler.
