@@ -1,0 +1,408 @@
+{
+	"variables": [],
+	"info": {
+		"name": "HackForGood",
+		"_postman_id": "86a8f382-f30e-cc76-9111-199f9a14be45",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:3000/api/eth/sendTransaction",
+			"request": {
+				"url": "http://localhost:3000/api/eth/sendTransaction",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "sender",
+							"value": "0x2e300a8bb576970e20e678d022738740690abf3c",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "receiver",
+							"value": "0x2e300a8bb576970e20e678d022738740690abf3c",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "amount",
+							"value": "1",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": "Send transaction"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/eth/unlockAccount",
+			"request": {
+				"url": "http://localhost:3000/api/eth/unlockAccount",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "password",
+							"value": "admin",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "address",
+							"value": "0x2e2ee41a039f4c8f7bee7d77af21770315ae1603",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": "Unlock account"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/eth/newAccount",
+			"request": {
+				"url": "http://localhost:3000/api/eth/newAccount",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "password",
+							"value": "admin",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": "New account"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/eth/deployID",
+			"request": {
+				"url": "http://localhost:3000/api/eth/deployID",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "lat",
+							"value": "1",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "long",
+							"value": "2",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "bioHash",
+							"value": "3",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "sender",
+							"value": "0x2e2ee41a039f4c8f7bee7d77af21770315ae1603",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "personalDataHash",
+							"value": "4",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": "Deploy contract"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/eth/getPerson/0x534f6bccdaee5a0ee7d9711059a45ce3fd81892d",
+			"request": {
+				"url": "http://localhost:3000/api/eth/getPerson/0x534f6bccdaee5a0ee7d9711059a45ce3fd81892d",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Get person"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/eth/updatePerson/0x534f6bccdaee5a0ee7d9711059a45ce3fd81892d",
+			"request": {
+				"url": "http://localhost:3000/api/eth/updatePerson/0x534f6bccdaee5a0ee7d9711059a45ce3fd81892d",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "personalDataHash",
+							"value": "asd",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "sender",
+							"value": "0x2e2ee41a039f4c8f7bee7d77af21770315ae1603",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": "Update person"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/mongo/createId",
+			"request": {
+				"url": "http://localhost:3000/api/mongo/createId",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "fingerPrint",
+							"value": "fingerhash",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "irisScan",
+							"value": "irishash",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "facialRecognition",
+							"value": "facialhash",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "Guilherme",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "gender",
+							"value": "M",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "age",
+							"value": "28",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "birthday",
+							"value": "21/03/89",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "city",
+							"value": "Viana",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "country",
+							"value": "Portugal",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "idNumber",
+							"value": "123456",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "email",
+							"value": "g@mail.com",
+							"description": "",
+							"type": "text"
+						},
+						{
+							"key": "contractAddress",
+							"value": "0x0000000000000000000",
+							"description": "",
+							"type": "text"
+						}
+					]
+				},
+				"description": "Create ID "
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/mongo/getId/f436dfec8e476082ae7d61c7d0ead69d98bf27e603f3d93054010c6869ad16d4",
+			"request": {
+				"url": "http://localhost:3000/api/mongo/getId/f436dfec8e476082ae7d61c7d0ead69d98bf27e603f3d93054010c6869ad16d4",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "Get ID"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/api/mongo/updateId",
+			"request": {
+				"url": "http://localhost:3000/api/mongo/updateId/f436dfec8e476082ae7d61c7d0ead69d98bf27e603f3d93054010c6869ad16d4",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/x-www-form-urlencoded",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "password",
+							"value": "password",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "name",
+							"value": "Guilherme Campos",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "gender",
+							"value": "M",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "age",
+							"value": "29",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "birthday",
+							"value": "21/03/89",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "city",
+							"value": "Viana",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "country",
+							"value": "Portugal",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "idNumber",
+							"value": "123456",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "email",
+							"value": "g@mail.com",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						},
+						{
+							"key": "contractAddress",
+							"value": "0x00000000000000000001",
+							"description": "",
+							"type": "text",
+							"disabled": true
+						}
+					]
+				},
+				"description": "Update ID "
+			},
+			"response": []
+		}
+	]
+}
