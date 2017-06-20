@@ -23,8 +23,9 @@ block content
                 td= id.profile.name
                 td= id.updatedAt
                 td 
-                  button.btn.btn-default.btn-sm(type='button')
-                    span.glyphicon.glyphicon-ok
+                  form.form-horizontal(action='validateId/'+id.token, method='post')
+                    button.btn.btn-default.btn-sm
+                      span.glyphicon.glyphicon-ok
   .panel.panel-default
     .panel-body Documents validation
       .container(style='width:100%')
@@ -45,5 +46,6 @@ block content
                 td= doc.name
                 td= doc.dateUploaded
                 td 
-                  button.btn.btn-default.btn-sm(type='button')
-                    span.glyphicon.glyphicon-ok                
+                  form.form-horizontal(action='validateDocument/'+doc.hash, method='post')
+                    button.btn.btn-default.btn-sm
+                      span.glyphicon.glyphicon-ok

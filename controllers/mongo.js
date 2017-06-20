@@ -91,12 +91,23 @@ module.exports.addDocument = (req, res, next) => {
 };
 
 module.exports.validateDocument = (req, res, next) => {
+  ID.find({ }).select('')
+  .exec((err, user) => {
+    user.update({ '$.documents.hash': req.body.hash }, { $set: { 'documents.$.validated': true } }, (err, result) => {
+      if (!err) res.json(result).end();
+      else return next(new Error(err));
+    });
+  });
+};
+
+module.exports.validateId = (req, res, next) => {
   ID.findOne({
     token: req.params.token
   }).select('')
   .exec((err, user) => {
-    user.update({ 'documents.hash': req.body.hash }, { $set: { 'documents.$.validated': true } }, (err, result) => {
-      if (!err) res.json(result).end();
+    user.active = true;
+    user.save((err, id) => {
+      if (!err) res.json(id).end();
       else return next(new Error(err));
     });
   });

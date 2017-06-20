@@ -53,8 +53,7 @@ module.exports.loadPending = (req, res, next) => {
       };
       request(
         requestOptions, (err, response, body) => {
-          if (err) return nex
-          t(new Error(err));
+          if (err) return next(new Error(err));
           pendingDocs = body;
           res.render('pending', {
             title: 'Pending',
@@ -97,6 +96,34 @@ module.exports.preview = (req, res, next) => {
         if (err) throw err;
         res.redirect(`/downloads/file.${req.params.type}`);
       });
+    }
+  );
+};
+
+module.exports.validateId = (req, res, next) => {
+  const path = `/api/mongo/validateId/${req.params.token}`;
+  const requestOptions = {
+    url: server + path,
+    method: 'POST'
+  };
+  request(
+    requestOptions, (err, response) => {
+      if (err) return next(new Error(err));
+      res.redirect('/pending');
+    }
+  );
+};
+
+module.exports.validateDocument = (req, res, next) => {
+  const path = `/api/mongo/validateId/${req.params.hash}`;
+  const requestOptions = {
+    url: server + path,
+    method: 'POST'
+  };
+  request(
+    requestOptions, (err, response) => {
+      if (err) return next(new Error(err));
+      res.redirect('/pending');
     }
   );
 };
