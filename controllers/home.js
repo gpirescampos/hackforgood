@@ -35,27 +35,36 @@ module.exports.loadDetails = (req, res, next) => {
 };
 
 module.exports.loadPending = (req, res, next) => {
-  const path = `/api/mongo/getId/${req.params.token}`;
-  const requestOptions = {
+  let pendingIds = [];
+  let pendingDocs = [];
+  let path = '/api/mongo/findPendingUsers';
+  let requestOptions = {
     url: server + path,
     method: 'GET'
   };
   request(
     requestOptions, (err, response, body) => {
       if (err) return next(new Error(err));
-      res.render('details', {
-        title: 'Details',
-        token: JSON.parse(response.body).token,
-        active: JSON.parse(response.body).active,
-        details: JSON.parse(response.body).profile,
-        documents: JSON.parse(response.body).documents,
-        locations: JSON.parse(response.body).location
-      });
+      pendingIds = body;
+      path = '/api/mongo/findPendingDocuments';
+      requestOptions = {
+        url: server + path,
+        method: 'GET'
+      };
+      request(
+        requestOptions, (err, response, body) => {
+          if (err) return nex
+          t(new Error(err));
+          pendingDocs = body;
+          res.render('pending', {
+            title: 'Pending',
+            ids: JSON.parse(pendingIds),
+            docs: JSON.parse(pendingDocs)[0]
+          });
+        }
+      );
     }
   );
-  res.render('pending', {
-    title: 'Pending'
-  });
 };
 
 module.exports.loadSearch = (req, res, next) => {

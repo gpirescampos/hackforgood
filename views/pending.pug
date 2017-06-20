@@ -4,30 +4,46 @@ block content
   h1 Pending validations
   hr
   .panel.panel-default
-    .panel-body
+    .panel-body Identity validation
       .container(style='width:100%')
         table.table.table-striped
           thead
             tr
               th #
               th Name
-              th Type
-              th Detail
+              th Date created
               th Validate
           tbody
+          if ids != null
+            - var i=0
+            for id in ids
+              - i++
+              tr
+                td= i
+                td= id.profile.name
+                td= id.updatedAt
+                td 
+                  button.btn.btn-default.btn-sm(type='button')
+                    span.glyphicon.glyphicon-ok
+  .panel.panel-default
+    .panel-body Documents validation
+      .container(style='width:100%')
+        table.table.table-striped
+          thead
             tr
-              td 1
-              td Guilherme campos
-              td 12/12/12
-              td New entry
-              td 
-                button.btn.btn-default.btn-sm(type='button')
-                  span.glyphicon.glyphicon-ok
-            tr
-              td 1
-              td ID
-              td 12/12/12
-              td ID Document
-              td 
-                button.btn.btn-default.btn-sm(type='button')
-                  span.glyphicon.glyphicon-ok
+              th #
+              th Name
+              th Date created
+              th Validate
+          tbody
+          if docs != null
+            - var i=0
+            for doc in docs
+              - i++
+              tr
+                td= i
+                td= doc.name
+                td= doc.dateUploaded
+                td 
+                  button.btn.btn-default.btn-sm(type='button')
+                    span.glyphicon.glyphicon-ok                
