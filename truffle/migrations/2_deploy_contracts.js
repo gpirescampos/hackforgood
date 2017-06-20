@@ -1,6 +1,5 @@
-var ConvertLib = artifacts.require("./ConvertLib.sol");
-var MetaCoin = artifacts.require("./MetaCoin.sol");
+var RefID = artifacts.require("./RefID.sol");
 
 module.exports = function(deployer) {
-
+    deployer.deploy(RefID);
 };

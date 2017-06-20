@@ -25,5 +25,5 @@ block content
     .text-success
       |  Token generated
     br
-    form.form-horizontal(action='preregister', method='get')
+    form.form-horizontal(action='finishRegister/'+token, method='post')
       button.btn.btn-info Finish

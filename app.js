@@ -116,6 +116,7 @@ app.post('/validateId/:token', homeController.validateId);
 app.post('/validateDocument/:hash/:token', homeController.validateDocument);
 app.get('/preregister', preController.getPreRegister);
 app.get('/preregister/:step/:token', preController.getPreRegister);
+app.post('/finishRegister/:token', preController.finishRegister);
 app.post('/initId', preController.initId);
 app.post('/saveFaceRecon', preController.saveFaceRecon);
 app.post('/saveFingerprint', preController.saveFingerprint);
@@ -132,9 +133,8 @@ app.get('/api/ipfs/download/:hash', ipfsController.downloadDocument);
 app.post('/api/eth/newAccount', ethereumController.newAccount);
 app.post('/api/eth/unlockAccount', ethereumController.unlockAccount);
 app.post('/api/eth/sendTransaction', ethereumController.sendTransaction);
-app.post('/api/eth/deployID', ethereumController.deployID);
-app.get('/api/eth/getPErson/:contractAddress', ethereumController.getPerson);
-app.post('/api/eth/updatePerson/:contractAddress', ethereumController.updatePerson);
+app.get('/api/eth/getPerson/:token', ethereumController.getPerson);
+app.post('/api/eth/updatePerson/:token', ethereumController.updatePerson);
 
 /**
  * Mongo routes

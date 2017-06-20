@@ -3,11 +3,11 @@ const contract = require('truffle-contract');
 const CONSTANTS = require('../constants');
 
 const web3 = new Web3();
-web3.setProvider(new web3.providers.HttpProvider(CONSTANTS.ETHEREUM_SERVER + ':' + CONSTANTS.ETHEREUM_PORT));
+web3.setProvider(new web3.providers.HttpProvider(`${CONSTANTS.ETHEREUM_SERVER}:${CONSTANTS.ETHEREUM_PORT}`));
 
 const refIDjson = require('../truffle/build/contracts/RefID.json');
 const refIDc = contract(refIDjson);
-refIDc.setProvider(new Web3.providers.HttpProvider(CONSTANTS.ETHEREUM_SERVER + ':' + CONSTANTS.ETHEREUM_PORT));
+refIDc.setProvider(new Web3.providers.HttpProvider(`${CONSTANTS.ETHEREUM_SERVER}:${CONSTANTS.ETHEREUM_PORT}`));
 
 module.exports.newAccount = (req, res, next) => {
   web3.personal.newAccount(req.body.password, (error, result) => {
@@ -43,25 +43,18 @@ module.exports.sendTransaction = (req, res, next) => {
   });
 };
 
-module.exports.deployID = (req, res, next) => {
-  refIDc.new(req.body.bioHash, req.body.personalDataHash, {
-    from: req.body.sender,
-    gas: 1000000
+module.exports.updatePerson = (req, res, next) => {
+  refIDc.deployed().then((instance) => {
+    console.log(req.body);
+    return instance.updatePerson(req.params.token, req.body.personalDataHash, req.body.bioHash, req.body.address, { from: req.body.sender, gas: 1000000 });
   }).then((response) => {
     res.json(response).end();
   }).catch(next);
 };
 
 module.exports.getPerson = (req, res, next) => {
-  refIDc.at(req.params.contractAddress).getPerson().then((response) => {
-    res.json(response).end();
-  }).catch(next);
-};
-
-module.exports.updatePerson = (req, res, next) => {
-  refIDc.at(req.params.contractAddress).updatePerson(req.body.personalDataHash, {
-    from: req.body.sender,
-    gas: 1000000
+  refIDc.deployed().then((instance) => {
+    return instance.getPerson(req.params.token);
   }).then((response) => {
     res.json(response).end();
   }).catch(next);
