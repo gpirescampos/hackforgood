@@ -113,7 +113,7 @@ app.get('/pending', homeController.loadPending);
 app.get('/search', homeController.loadSearch);
 app.get('/preview/:hash/:type', homeController.preview);
 app.post('/validateId/:token', homeController.validateId);
-app.post('/validateDocument/:hash', homeController.validateDocument);
+app.post('/validateDocument/:hash/:token', homeController.validateDocument);
 app.get('/preregister', preController.getPreRegister);
 app.get('/preregister/:step/:token', preController.getPreRegister);
 app.post('/initId', preController.initId);
@@ -148,7 +148,7 @@ app.get('/api/mongo/getAll', mongoController.getAll);
 app.get('/api/mongo/findPendingUsers', mongoController.findPendingUsers);
 app.get('/api/mongo/findPendingDocuments', mongoController.findPendingDocuments);
 app.post('/api/mongo/validateId/:token', mongoController.validateId);
-app.post('/api/mongo/validateDocument/:hash', mongoController.validateDocument);
+app.post('/api/mongo/validateDocument/:hash/:token', mongoController.validateDocument);
 
 /**
  * Error Handler.

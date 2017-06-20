@@ -46,6 +46,6 @@ block content
                 td= doc.name
                 td= doc.dateUploaded
                 td 
-                  form.form-horizontal(action='validateDocument/'+doc.hash, method='post')
+                  form.form-horizontal(action='validateDocument/'+doc.hash+'/'+doc.userToken, method='post')
                     button.btn.btn-default.btn-sm
                       span.glyphicon.glyphicon-ok

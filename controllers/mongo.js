@@ -79,7 +79,8 @@ module.exports.addDocument = (req, res, next) => {
     dateUploaded: Date.now(),
     hash: req.body.hash,
     validated: false,
-    docType: req.body.type
+    docType: req.body.type,
+    userToken: req.params.token
   };
   console.log(doc);
   ID.update({ token: req.params.token },
@@ -91,13 +92,16 @@ module.exports.addDocument = (req, res, next) => {
 };
 
 module.exports.validateDocument = (req, res, next) => {
-  ID.find({ }).select('')
-  .exec((err, user) => {
-    user.update({ '$.documents.hash': req.body.hash }, { $set: { 'documents.$.validated': true } }, (err, result) => {
-      if (!err) res.json(result).end();
+  ID.update(
+    { token: req.params.token, 'documents.hash': req.params.hash },
+    { $set: {
+      'documents.$.validated': true
+    } },
+    function(err, id) {
+      if (!err) res.json(id).end();
       else return next(new Error(err));
-    });
-  });
+    }
+  );
 };
 
 module.exports.validateId = (req, res, next) => {

@@ -115,7 +115,7 @@ module.exports.validateId = (req, res, next) => {
 };
 
 module.exports.validateDocument = (req, res, next) => {
-  const path = `/api/mongo/validateId/${req.params.hash}`;
+  const path = `/api/mongo/validateDocument/${req.params.hash}/${req.params.token}`;
   const requestOptions = {
     url: server + path,
     method: 'POST'
