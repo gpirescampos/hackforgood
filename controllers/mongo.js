@@ -62,7 +62,6 @@ module.exports.updateId = (req, res, next) => {
       user.profile.city = !req.body.city ? user.profile.city : req.body.city;
       user.profile.country = !req.body.country ? user.profile.country : req.body.country;
       user.profile.email = !req.body.email ? user.profile.email : req.body.email;
-      user.extra.contractAddress = !req.body.contractAddress ? user.extra.contractAddress : req.body.contractAddress;
       user.extra.accountAddress = !req.body.accountAddress ? user.extra.accountAddress : req.body.accountAddress;
       user.hashProfile();
       user.save((err, id) => {
@@ -82,7 +81,6 @@ module.exports.addDocument = (req, res, next) => {
     docType: req.body.type,
     userToken: req.params.token
   };
-  console.log(doc);
   ID.update({ token: req.params.token },
     { $push: { documents: doc } },
     { upsert: true }, (err, data) => {

@@ -9,10 +9,6 @@ const refIDjson = require('../truffle/build/contracts/RefID.json');
 const refIDc = contract(refIDjson);
 refIDc.setProvider(new Web3.providers.HttpProvider(`${CONSTANTS.ETHEREUM_SERVER}:${CONSTANTS.ETHEREUM_PORT}`));
 
-module.exports.getCoinbase = (req, res) => {
-  res.json(web3.eth.coinbase).end();
-};
-
 module.exports.newAccount = (req, res, next) => {
   web3.personal.newAccount(req.body.password, (error, result) => {
     if (!error) {
@@ -24,10 +20,8 @@ module.exports.newAccount = (req, res, next) => {
 };
 
 module.exports.unlockAccount = (req, res, next) => {
-  console.log(req.body);
   web3.personal.unlockAccount(req.body.address, req.body.password, 99999, (error, result) => {
     if (!error) {
-      console.log(result);
       res.json(result).end();
     } else {
       return next(new Error(error));
@@ -51,7 +45,6 @@ module.exports.sendTransaction = (req, res, next) => {
 
 module.exports.updatePerson = (req, res, next) => {
   refIDc.deployed().then((instance) => {
-    console.log(req.body);
     return instance.updatePerson(req.params.token, req.body.personalDataHash, req.body.bioHash, req.body.address, { from: req.body.address, gas: 1000000 });
   }).then((response) => {
     res.json(response).end();

@@ -90,7 +90,6 @@ module.exports.saveFingerprint = (req, res, next) => {
           };
           request(
             requestOptions, (err, response, body) => {
-              console.log(body);
               if (err) return next(new Error(err));
               res.render('preregister', {
                 title: 'Pre-Registration',
@@ -117,6 +116,7 @@ module.exports.finishRegister = (req, res, next) => {
   };
   request(
     requestOptions, (err, response) => {
+      person = JSON.parse(response.body);
       if (err) return next(new Error(err));
       path = '/api/eth/unlockAccount';
       requestOptions = {
@@ -124,21 +124,21 @@ module.exports.finishRegister = (req, res, next) => {
         method: 'POST',
         form: {
           password: 'admin',
-          address: '0x2e2ee41a039f4c8f7bee7d77af21770315ae1603'
+          address: '0xe0c612a0aff548ceef71f96d651c27707538daec'
         },
         json: true
       };
       request(
         requestOptions, (err, response) => {
           if (err) return next(new Error(err));
-          console.log(person);
           path = '/api/eth/sendTransaction';
           requestOptions = {
             url: server + path,
             method: 'POST',
             form: {
-              password: person.password,
-              address: person.extra.accountAddress
+              sender: '0xe0c612a0aff548ceef71f96d651c27707538daec',
+              receiver: person.extra.accountAddress,
+              amount: 5
             },
             json: true
           };
@@ -172,7 +172,7 @@ module.exports.finishRegister = (req, res, next) => {
                   request(
                     requestOptions, (err, response) => {
                       if (err) return next(new Error(err));
-                      res.render('preregister', {
+                      res.redirect('/preregister', 200, {
                         title: 'Pre-Registration'
                       });
                     }

@@ -135,7 +135,6 @@ app.post('/api/eth/unlockAccount', ethereumController.unlockAccount);
 app.post('/api/eth/sendTransaction', ethereumController.sendTransaction);
 app.get('/api/eth/getPerson/:token', ethereumController.getPerson);
 app.post('/api/eth/updatePerson/:token', ethereumController.updatePerson);
-app.get('/api/eth/getCoinbase', ethereumController.getCoinbase);
 
 /**
  * Mongo routes

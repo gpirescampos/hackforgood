@@ -36,7 +36,6 @@ const idSchema = new mongoose.Schema({
   }],
 
   extra: {
-    contractAddress: String,
     accountAddress: String,
     profileHash: String,
     bioHash: String
