@@ -41,7 +41,8 @@ module.exports.saveFaceRecon = (req, res, next) => {
     method: 'POST',
     form: {
       irisScan: crypto.createHash('sha256').update(crypto.randomBytes(64)).digest('hex'),
-      facialRecognition: crypto.createHash('sha256').update(crypto.randomBytes(64)).digest('hex')
+      facialRecognition: crypto.createHash('sha256').update(crypto.randomBytes(64)).digest('hex'),
+      photo: req.body.photo
     },
     json: true
   };
@@ -91,13 +92,15 @@ module.exports.saveFingerprint = (req, res, next) => {
           request(
             requestOptions, (err, response, body) => {
               if (err) return next(new Error(err));
+              console.log(body.photo);
               res.render('preregister', {
                 title: 'Pre-Registration',
                 step: 3,
                 token: body.token,
                 name: body.profile.name,
                 city: body.profile.city,
-                country: body.profile.country
+                country: body.profile.country,
+                photo: body.photo
               });
             }
           );

@@ -63,6 +63,7 @@ module.exports.updateId = (req, res, next) => {
       user.profile.country = !req.body.country ? user.profile.country : req.body.country;
       user.profile.email = !req.body.email ? user.profile.email : req.body.email;
       user.extra.accountAddress = !req.body.accountAddress ? user.extra.accountAddress : req.body.accountAddress;
+      user.photo = !req.body.photo ? user.photo : req.body.photo;
       user.hashProfile();
       user.save((err, id) => {
         if (!err) res.json(id).end();

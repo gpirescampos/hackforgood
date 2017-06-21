@@ -3,7 +3,9 @@ p.lead Look into the camera, and wait until the scan is performed
 hr
 .panel.panel-default.center-block(style='width:50%')
   .panel-body.center-block
-    img.center-block.img-thumbnail.img-responsive(src='/images/camera.png', alt='Camera')
+    video#video(width='640', height='480', autoplay='')
+    button#snap Save
+    canvas#canvas(width='640', height='480', hidden)
 .progress
   .progress-bar(role='progressbar', aria-valuenow='70', aria-valuemin='0', aria-valuemax='100', style='width:70%')
     | 70%
@@ -16,4 +18,25 @@ hr
 br
 form.form-horizontal(action='saveFaceRecon', method='post')
   input(type='hidden', name='token', value=token)
+  input(id='photo', type='hidden', name='photo')
   button.btn.btn-info(value='Next') Next
+
+script.
+  var video = document.getElementById('video');
+  // Get access to the camera!
+  if(navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+      // Not adding `{ audio: true }` since we only want video now
+      navigator.mediaDevices.getUserMedia({ video: true }).then(function(stream) {
+          video.src = window.URL.createObjectURL(stream);
+          video.play();
+      });
+  }
+  var canvas = document.getElementById('canvas');
+  var context = canvas.getContext('2d');
+  var video = document.getElementById('video');
+
+  // Trigger photo take
+  document.getElementById("snap").addEventListener("click", function() {
+    context.drawImage(video, 0, 0, 640, 480);
+    $("#photo").val(canvas.toDataURL("image/png"));
+  });

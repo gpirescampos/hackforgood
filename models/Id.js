@@ -39,7 +39,8 @@ const idSchema = new mongoose.Schema({
     accountAddress: String,
     profileHash: String,
     bioHash: String
-  }
+  },
+  photo: String
 }, {
   timestamps: true
 });
