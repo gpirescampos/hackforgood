@@ -44,17 +44,18 @@ module.exports.sendTransaction = (req, res, next) => {
 };
 
 module.exports.updatePerson = (req, res, next) => {
-  refIDc.deployed().then((instance) => {
-    return instance.updatePerson(req.params.token, req.body.personalDataHash, req.body.bioHash, req.body.address, { from: req.body.address, gas: 1000000 });
-  }).then((response) => {
+  console.log(req.params.token);
+  console.log(req.body.personalDataHash);
+  console.log(req.body.bioHash);
+  console.log(req.body.address);
+  refIDc.deployed().then(instance => instance.updatePerson(req.params.token, req.body.personalDataHash, req.body.bioHash, req.body.address, { from: req.body.address, gas: 100000 })).then((response) => {
+    console.log(response);
     res.json(response).end();
   }).catch(next);
 };
 
 module.exports.getPerson = (req, res, next) => {
-  refIDc.deployed().then((instance) => {
-    return instance.getPerson(req.params.token);
-  }).then((response) => {
+  refIDc.deployed().then(instance => instance.getPerson(req.params.token)).then((response) => {
     res.json(response).end();
   }).catch(next);
 };
