@@ -28,7 +28,8 @@ module.exports.loadDetails = (req, res, next) => {
         active: JSON.parse(response.body).active,
         details: JSON.parse(response.body).profile,
         documents: JSON.parse(response.body).documents,
-        locations: JSON.parse(response.body).location
+        locations: JSON.parse(response.body).location,
+        photo: JSON.parse(response.body).photo
       });
     }
   );
