@@ -109,32 +109,78 @@ module.exports.saveFingerprint = (req, res, next) => {
 };
 
 module.exports.finishRegister = (req, res, next) => {
-  const path = `/api/mongo/getId/${req.params.token}`;
-  const requestOptions = {
+  let person;
+  let path = `/api/mongo/getId/${req.params.token}`;
+  let requestOptions = {
     url: server + path,
     method: 'GET'
   };
   request(
     requestOptions, (err, response) => {
       if (err) return next(new Error(err));
-      console.log(JSON.parse(response.body).extra.profileHash);
-      console.log(JSON.parse(response.body).extra.bioHash);
-      console.log(JSON.parse(response.body).extra.accountAddress);
-      const path = `/api/eth/updatePerson/${req.params.token}`;
-      const requestOptions = {
+      path = '/api/eth/unlockAccount';
+      requestOptions = {
         url: server + path,
         method: 'POST',
         form: {
-          personalDataHash: JSON.parse(response.body).extra.profileHash,
-          bioHash: JSON.parse(response.body).extra.bioHash,
-          address: JSON.parse(response.body).extra.accountAddress
+          password: 'admin',
+          address: '0x2e2ee41a039f4c8f7bee7d77af21770315ae1603'
         },
         json: true
       };
       request(
         requestOptions, (err, response) => {
           if (err) return next(new Error(err));
-          console.log(response.body);
+          console.log(person);
+          path = '/api/eth/sendTransaction';
+          requestOptions = {
+            url: server + path,
+            method: 'POST',
+            form: {
+              password: person.password,
+              address: person.extra.accountAddress
+            },
+            json: true
+          };
+          request(
+            requestOptions, (err, response) => {
+              if (err) return next(new Error(err));
+              path = '/api/eth/unlockAccount';
+              requestOptions = {
+                url: server + path,
+                method: 'POST',
+                form: {
+                  password: person.password,
+                  address: person.extra.accountAddress
+                },
+                json: true
+              };
+              request(
+                requestOptions, (err, response) => {
+                  if (err) return next(new Error(err));
+                  path = `/api/eth/updatePerson/${req.params.token}`;
+                  requestOptions = {
+                    url: server + path,
+                    method: 'POST',
+                    form: {
+                      personalDataHash: person.extra.profileHash,
+                      bioHash: person.extra.bioHash,
+                      address: person.extra.accountAddress
+                    },
+                    json: true
+                  };
+                  request(
+                    requestOptions, (err, response) => {
+                      if (err) return next(new Error(err));
+                      res.render('preregister', {
+                        title: 'Pre-Registration'
+                      });
+                    }
+                  );
+                }
+              );
+            }
+          );
         }
       );
     }
