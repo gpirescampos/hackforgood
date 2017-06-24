@@ -175,8 +175,8 @@ module.exports.finishRegister = (req, res, next) => {
                   request(
                     requestOptions, (err, response) => {
                       if (err) return next(new Error(err));
-                      res.redirect('/preregister', 200, {
-                        title: 'Pre-Registration'
+                      res.redirect('/', 200, {
+                        title: 'Home'
                       });
                     }
                   );

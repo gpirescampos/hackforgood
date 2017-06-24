@@ -3,12 +3,7 @@ extends layout
 block content
   h1 Login
   p.lead Provide your biometric details in order to proceed with login
-  hr
-  .container
-    .row.panel.panel-default.center-block
-      .panel-body.center-block.col-sm-6
-        img.center-block.img-thumbnail.img-responsive(src='/images/camera.png', alt='Camera')
-      .panel-body.center-block.col-sm-6
-        img.center-block.img-thumbnail.img-responsive(src='/images/fingerprint.png', alt='Fingerprint')
-    form.form-horizontal(action='search', method='get')
-      button.btn.btn-info(value='Next') Login
+  .panel-body.center-block
+    img.center-block(src='/images/fingerprint.png', alt='Camera')
+  form.form-horizontal(action='search', method='get')
+    button.btn.btn-hack(value='Next') Login
