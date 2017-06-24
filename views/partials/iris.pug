@@ -1,25 +1,24 @@
-.container(style='padding:0;')
-  .row
+.row(style='position: absolute;padding: 0;top: 0;padding-top:3%;width:100vw;left:0;')
     h1(style='position: absolute;width: 100vw;text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;color:white') Pre-registration
     p.lead(style='position: absolute;width: 100vw;margin-top: 10%;text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;color:white') Look into the camera, and wait until the scan is performed
-    video#video(autoplay='')
-    canvas#canvas(width='640', height='480', hidden)
-    .container(style='position: absolute;padding: 0;bottom: 0;padding-bottom: 5%;')
-      .row
-        .progress
-          .progress-bar(role='progressbar', aria-valuenow='70', aria-valuemin='0', aria-valuemax='100', style='width:70%')
-            | 70%
-        #t1.text-success(hidden, style='text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;color:white')
-          strong Success!
-          |  Iris scanned
-        #t2.text-success(hidden, style='text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;color:white')
-          strong Success!
-          |  Facial recognition done
-        button.btn.btn-hack(id='snap', value='Save') Save
-        form.form-horizontal(action='saveFaceRecon', hidden, method='post', id="form")
-          input(type='hidden', name='token', value=token)
-          input(id='photo', type='hidden', name='photo')
-          button.btn.btn-hack(value='Next') Next
+video#video(autoplay='')
+canvas#canvas(width='640', height='480', hidden)
+.container(style='position: absolute;padding: 0;bottom: 0;padding-bottom: 3%;')
+  .row
+    .progress
+      .progress-bar(role='progressbar', aria-valuenow='70', aria-valuemin='0', aria-valuemax='100', style='width:70%')
+        | 70%
+    #t1.text-success(hidden, style='text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;color:white')
+      strong Success!
+      |  Iris scanned
+    #t2.text-success(hidden, style='text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;color:white')
+      strong Success!
+      |  Facial recognition done
+    button.btn.btn-hack(id='snap', value='Save') Save
+    form.form-horizontal(action='saveFaceRecon', hidden, method='post', id="form")
+      input(type='hidden', name='token', value=token)
+      input(id='photo', type='hidden', name='photo')
+      button.btn.btn-hack(value='Next') Next
 
 script.
   var video = document.getElementById('video');
