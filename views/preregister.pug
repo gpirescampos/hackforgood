@@ -10,7 +10,7 @@ block content
   else if step==3
     h1 Pre-registration
     p.lead Finished
-    .panel.panel-default
+    .panel.panel-default(style='border-radius:100px;')
       .panel-body
         .media
           .media-left
@@ -19,10 +19,10 @@ block content
             h4.media-heading= name
             p= city + ' | ' + country
       
-    .text-success
+    .text-success(style='padding-left:4%')
       |  Account created
-    .text-success
+    .text-success(style='padding-left:4%')
       |  Token generated
     br
     form.form-horizontal(action='finishRegister/'+token, method='post')
-      button.btn.btn-info Finish
+      button.btn.btn-hack Finish

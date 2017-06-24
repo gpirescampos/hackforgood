@@ -1,8 +1,7 @@
-h1 Pre registration
+h1 Pre-registration
 p.lead Use the sensor to perform a fingerprint recognition
-.panel.panel-default.center-block(style='width:50%')
-  .panel-body.center-block
-    img.center-block.img-thumbnail.img-responsive(src='/images/fingerprint.png', alt='Camera')
+.panel-body.center-block
+  img.center-block.img-thumbnail.img-responsive(src='/images/fingerprint.png', alt='Camera')
 .progress
   .progress-bar(role='progressbar', aria-valuenow='70', aria-valuemin='0', aria-valuemax='100', style='width:70%')
     | 70%
@@ -12,4 +11,4 @@ p.lead Use the sensor to perform a fingerprint recognition
 br
 form.form-horizontal(action='saveFingerprint', method='post')
   input(type='hidden', name='token', value=token)
-  button.btn.btn-info(value='Next') Next
+  button.btn.btn-hack(value='Next') Next
