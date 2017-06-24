@@ -1,14 +1,11 @@
 @import "themes/default/variables";
-
 @import "lib/bootstrap/bootstrap";
 @import "lib/font-awesome/font-awesome";
-
 @import "themes/default/default";
-
 // Scaffolding
 // -------------------------
-
 html {
+  font-family: 'Montserrat', sans-serif !important;
   position: relative;
   min-height: 100%;
 }
@@ -24,22 +21,20 @@ footer {
   width: 100%;
   height: 45px;
   line-height: 45px;
-
-  p, ul {
+  p,
+  ul {
     margin-bottom: 0;
   }
 }
 
 // Input Fields
 // -------------------------
-
 textarea {
   resize: vertical;
 }
 
 // Navbar
 // -------------------------
-
 .navbar-nav img {
   width: 30px;
   height: 30px;
@@ -48,14 +43,12 @@ textarea {
 
 // Alerts
 // -------------------------
-
 .alert {
   margin-top: 20px;
 }
 
 // Thumbnails
 // -------------------------
-
 .thumbnail {
   padding: 0;
   border-radius: 0;
@@ -64,7 +57,77 @@ textarea {
 
 // Font Icons
 // -------------------------
-
 .fa {
   margin-right: 6px;
+}
+
+.btn-hack {
+  height: 50px;
+  margin-top: 3%;
+  border-radius: 100px;
+  width: 100%;
+  box-shadow: none;
+  float: right;
+  color: #f5f5f5;
+  background-color: #16a085;
+  border-color: #16a085;
+}
+
+.btn-hack:focus,
+.btn-hack.focus {
+  color: #f5f5f5;
+  background-color: #0e705d;
+  border-color: #0e705d;
+}
+
+.btn-hack:hover {
+  -webkit-transition: 1s ease-out;
+  color: #f5f5f5;
+  background-color: #0e705d;
+  border-color: #0e705d;
+}
+
+.form-control {
+  font-size: 16px;
+  font-weight: 100;
+  color: #777;
+  border-radius: 100px;
+  border: 1px solid #ccc;
+  height: 50px;
+  box-shadow: none;
+}
+
+.form-control:hover,
+.form-control:focus {
+  border: 1px solid #16a085;
+}
+
+label {
+  font-weight: 100;
+  padding-left: 4%;
+}
+
+h1 {
+  margin-top: 5%;
+  text-align: center;
+  font-weight: 300;
+}
+
+.lead {
+  text-align: center;
+  font-size: 12px;
+  color: #777;
+}
+
+video {
+  opacity: 0.7;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    z-index: -100;
+    transform: translateX(-50%) translateY(-50%);
 }

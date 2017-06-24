@@ -127,7 +127,7 @@ module.exports.finishRegister = (req, res, next) => {
         method: 'POST',
         form: {
           password: 'admin',
-          address: '0x2e2ee41a039f4c8f7bee7d77af21770315ae1603'
+          address: '0xe0c612a0aff548ceef71f96d651c27707538daec'
         },
         json: true
       };
@@ -139,7 +139,7 @@ module.exports.finishRegister = (req, res, next) => {
             url: server + path,
             method: 'POST',
             form: {
-              sender: '0x2e2ee41a039f4c8f7bee7d77af21770315ae1603',
+              sender: '0xe0c612a0aff548ceef71f96d651c27707538daec',
               receiver: person.extra.accountAddress,
               amount: 5
             },

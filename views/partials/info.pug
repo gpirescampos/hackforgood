@@ -1,35 +1,41 @@
-h1 Pre registration
+h1 Pre-registration
 p.lead Please fill in the following info, and press Next when ready
-hr
-form.form-horizontal(action='initId', method='post', style='padding:5%')
-  .form-group
-    label(for='name') Name
-    input.form-control(type='text', name='name', id='name', placeholder='Name', autofocus, required)
-  .form-group
-    label(for='gender') Gender
-    br
-    .col-sm-1
-      input(type='radio', name='gender', value='male', checked)
-      label.small Male
-    .col-sm-1
-      input(type='radio', name='gender', value='female')
-      label.small Female
-    .col-sm-10
-    br
-  .form-group
-    label(for='birthDay') Date of birth
-    input.form-control(type='date', name='birthDay', id='birthDay', placeholder='Date of birth', required)
-  .form-group
-    label(for='country') Country
-    input.form-control(type='text', name='country', id='country', placeholder='Country', required)
-  .form-group
-    label(for='city') City
-    input.form-control(type='text', name='city', id='city', placeholder='City', required)
-  .form-group
-    label(for='email') Email
-    input.form-control(type='email', name='email', id='email', placeholder='Email')
-  .form-group
-    label(for='password') Password
-    input.form-control(type='password', name='password', id='password', placeholder='Password', required)
-  .form-group
-    input.btn.btn-info(type='submit' value='Next')
+form.form-horizontal(action='initId', method='post', style='padding:3%;')
+  .form-group(style='padding-left:15px;padding-right:15px;')
+    label(for='name', style='padding-left:2%') Name
+    input.form-control(type='text', name='name', id='name', autofocus, required)
+  .form-group.container-fluid
+    .row
+      .col-sm-6
+        label(for='gender') Gender
+        br
+        .container-fluid
+          .row(style='height:50px;')
+            .col-sm-6(style='height: 100%;margin-top: 5%;padding-left: 20%;')
+              input(type='radio', name='gender', value='male', checked)
+              label.small Male
+            .col-sm-6(style='height: 100%;margin-top: 5%;')
+              input(type='radio', name='gender', value='female')
+              label.small Female
+          br
+      .col-sm-6
+        label(for='birthDay') Date of birth
+        input.form-control(type='date', name='birthDay', id='birthDay', required)
+  .form-group.container-fluid
+    .row
+      .col-sm-6
+        label(for='country') Country
+        input.form-control(type='text', name='country', id='country', required)
+      .col-sm-6
+        label(for='city') City
+        input.form-control(type='text', name='city', id='city', required)
+  .form-group.container-fluid
+    .row
+      .col-sm-6
+        label(for='email') Email
+        input.form-control(type='email', name='email', id='email')
+      .col-sm-6
+        label(for='password') Password
+        input.form-control(type='password', name='password', id='password', required)
+  .form-group.text-center.center-block(style='padding-left:15px;padding-right:15px;')
+    input.btn.btn-hack.btn-lg.center-block(type='submit' value='Next')
