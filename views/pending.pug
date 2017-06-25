@@ -2,17 +2,19 @@ extends layout
 
 block content
   h1 Pending validations
-  hr
-  .panel.panel-default
-    .panel-body Identity validation
+
+  h2.details(style='font-weight:300;') Identity validation
+  br
+  .panel.panel-default(style='border-radius:100px;margin-top:5%;border: 1px solid #16a085;')
+    .panel-body
       .container(style='width:100%')
-        table.table.table-striped
+        table.table
           thead
             tr
-              th #
-              th Name
-              th Date created
-              th Validate
+              th(style='font-weight:300') #
+              th(style='font-weight:300') Name
+              th(style='font-weight:300') Date created
+              th(style='font-weight:300') Validate
           tbody
           if ids != null
             - var i=0
@@ -26,16 +28,18 @@ block content
                   form.form-horizontal(action='validateId/'+id.token, method='post')
                     button.btn.btn-default.btn-sm
                       span.glyphicon.glyphicon-ok
-  .panel.panel-default
-    .panel-body Documents validation
+  h2.details(style='font-weight:300;margin-bottom:5%') Document validation
+  br
+  .panel.panel-default(style='border-radius:100px;margin-top:5%;border: 1px solid #16a085;')
+    .panel-body
       .container(style='width:100%')
-        table.table.table-striped
+        table.table
           thead
             tr
-              th #
-              th Name
-              th Date created
-              th Validate
+              th(style='font-weight:300') #
+              th(style='font-weight:300') Name
+              th(style='font-weight:300') Date created
+              th(style='font-weight:300') Validate
           tbody
           if docs != null
             - var i=0
