@@ -2,13 +2,11 @@ extends layout
 
 block content
   h1 Search
-  hr
-  label Token
   input.form-control(list='tokens', type='text', name='token', id='token', placeholder='token', autofocus, required)
   datalist#tokens
     for token in tokens
       option(value=token)
-  button.btn.btn-info(onclick='goToDetails()', value='Next') Search
+  button.btn.btn-hack(onclick='goToDetails()', value='Next') Search
 
   script.
     function goToDetails() {

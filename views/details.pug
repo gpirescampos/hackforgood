@@ -1,46 +1,46 @@
 extends layout
 
 block content
-  h1 Home
-  hr
+  h1 Details
+  .form-group(style='padding-left:15px;padding-right:15px;')
+    .row
+     .col-sm-2
+        .media
+          .media-left(style='padding-left: 50%;')
+            label.details(for='name', style='padding-left:2%') &nbsp
+            img.media-object.img-circle(src=photo, style='width:50px;height:50px')
+     .col-sm-10
+      label.details(for='name', style='padding-left:2%') Name
+      input.form-control(type='text', name='name', id='name', autofocus, required, value=details.name)
+  .form-group.container-fluid
+    .row
+      .col-sm-6
+        label.details(for='gender') Gender
+        input.form-control(type='text', name='gender', id='gender', required, value=details.gender)
+      .col-sm-6
+        label.details(for='birthDay') Date of birth
+        input.form-control(type='text', name='birthDay', id='birthDay', required, value=details.birthDay)
+  .form-group.container-fluid
+    .row
+      .col-sm-6
+        label.details(for='country') Country
+        input.form-control(type='text', name='country', id='country', required, value=details.country)
+      .col-sm-6
+        label.details(for='city') City
+        input.form-control(type='text', name='city', id='city', required, value=details.city)
+  .form-group.container-fluid
+    .row
+      .col-sm-6
+        label.details(for='email') Email
+        input.form-control(type='email', name='email', id='email', value=details.email)
+      .col-sm-6
+        label.details(for='ether') Ether amount
+        input.form-control(type='text', name='ether', id='ether', required, value='100')
   #accordion.panel-group
     .panel.panel-default
       .panel-heading
         h4.panel-title
-          a(data-toggle='collapse', data-parent='#accordion', href='#collapse1')
-            | Details
-            if active == true
-              span.glyphicon.glyphicon-ok
-            else 
-              span.glyphicon.glyphicon-remove
-      #collapse1.panel-collapse.collapse.in
-        .panel-body
-          .media
-            .media-left
-              img.media-object.img-thumbnail(src=photo, style='width:100px')
-            .media-body
-              .container-fluid
-                .row
-                  .col-lg
-                  .col-sm-3
-                    p Name | #{details.name}
-                  .col-sm-3
-                    p Date of Birth | #{details.birthDay}
-                  .col-sm-3
-                    p Gender | #{details.gender}
-                .row
-                  .col-sm-3
-                    p Country | #{details.country}
-                  .col-sm-3
-                    p City | #{details.city}
-                  .col-sm-3
-                .row
-                  .col-sm-3
-                    p Ether amount | 100
-    .panel.panel-default
-      .panel-heading
-        h4.panel-title
-          a(data-toggle='collapse', data-parent='#accordion', href='#collapse2')
+          a(data-toggle='collapse', data-parent='#accordion', href='#collapse2', style='font-weight:300')
             | Documents
       #collapse2.panel-collapse.collapse
         .panel-body
@@ -78,7 +78,7 @@ block content
     .panel.panel-default
       .panel-heading
         h4.panel-title
-          a(data-toggle='collapse', data-parent='#accordion', href='#collapse3')
+          a(data-toggle='collapse', data-parent='#accordion', href='#collapse3', style='font-weight:300')
             | Journey
       #collapse3.panel-collapse.collapse
         .panel-body
